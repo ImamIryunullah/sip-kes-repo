@@ -4,7 +4,7 @@
 
 <script>
 
-import api from '@/service/api';
+// import api from '@/service/api';
 export default {
   name: 'HomeView',
   components: {
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     getAllberita() {
-      a
+
     }
 
   },
