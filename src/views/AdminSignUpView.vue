@@ -22,6 +22,7 @@
             <input v-model="admin.first_name" placeholder="First Name" required />
             <input v-model="admin.last_name" placeholder="Last Name" required />
             <input v-model="admin.kotakabupaten" placeholder="Kota/Kabupaten" required />
+            <input v-model="admin.kotakabupaten" placeholder="Kota/Kabupaten" required />
             <input v-model="admin.nip" placeholder="NIP" required />
             <input type="file" @change="handleFileUpload" required />
             <button type="submit">SIGN UP</button>
