@@ -1,68 +1,52 @@
-
 import axios from "axios";
 
-const baseURL = "http://192.168.1.35:5000/";
+const baseURL = "http://192.168.1.8:5000";
 
 const API = axios.create({
-  baseURL: baseURL
+  baseURL: baseURL,
 });
 
-// API.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 export default {
-    postLogin(datass) {
-      return axios.post(`${baseURL}/login`, datass)
-    },
-    // Obat management
-    getObat() {
-      return API.get(`${baseURL}/obat`);
-    },
-    getObatId(id) {
-      return API.get(`${baseURL}/obat/${id}`);
-    },
-    createObat(formData) {
-      return API.post(`${baseURL}/obat`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    },
-    createBatchObat(obatList) {
-      return API.post(
-        `${baseURL}/obat/batch`,
-        obatList,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-    },
-    updateObat(id, obat) {
-      return API.put(`${baseURL}/obat/${id}`, obat);
-    },
-    updateBatchObat(obatList) {
-      return API.put(
-        `${baseURL}/obat/batch_update`,
-        obatList
-      );
-    },
-    deleteObat(id) {
-      return API.delete(`${baseURL}/obat/${id}`);
-    },
-    deleteBatchObat(ids) {
-      return API.post(`${baseURL}/obat/batch_delete`, ids);
-    },
+  getNews() {
+    return API.get(`/news`);
+  },
 
-  };
-  
+  createNews(formData) {
+    return API.post("/news", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+
+  updateNews(id, formData) {
+    return API.put(`/news/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+
+  deleteNews(id) {
+    return API.delete(`/news/${id}`);
+  },
+
+  registerUser(userData) {
+    return API.post("/users/register", userData);
+  },
+
+  loginUser(userData) {
+    return API.post("/users/login", userData);
+  },
+
+  getUserProfile() {
+    return API.get("/users/profile");
+  },
+
+  updateUserProfile(userData) {
+    return API.put("/users/profile", userData);
+  },
+  getfullpathImage(img){
+    return `${baseURL}${img}`
+  }
+};
