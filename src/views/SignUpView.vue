@@ -1,10 +1,10 @@
 <template>
   <div :class="{'dark': isDarkMode}" class="w-screen h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
-    <div class="main-container w-full sm:w-[100%] md:w-[1700px] h-[750px] bg-white dark:bg-gray-800 relative overflow-hidden shadow-lg rounded-lg flex">
+    <!-- <div class="main-container w-full sm:w-[100%] md:w-[1700px] h-[750px] bg-white dark:bg-gray-800 relative overflow-hidden shadow-lg rounded-lg flex"> -->
       
       <!-- Left Section (Background) -->
       <div class="hidden md:block w-1/2 h-full bg-[#03a980] rounded-r-[40px] flex flex-col justify-center items-center text-white animate-slideIn">
-        <div class="w-[80%] h-[50%] relative">
+        <div class="w-[80%] h-[50%]">
           <img src="@/assets/frame229.png" alt="Illustration" class="w-full h-full object-cover rounded-lg" />
         </div>
         <span class="text-center text-lg font-light px-6 mt-6">
@@ -28,7 +28,7 @@
         </form>
 
         <!-- Submit Button -->
-        <button @click="submitForm" class="mt-6 w-full bg-[#03a980] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#028a66] transition dark:bg-[#028a66] dark:hover:bg-[#03a980]" :disabled="isFormInvalid">
+        <button @click="submitForm" class="mt-6 w-full bg-[#03a980] text-white px-3 py-2 rounded-lg font-bold hover:bg-[#028a66] transition dark:bg-[#028a66] dark:hover:bg-[#03a980]" :disabled="isFormInvalid">
           SIGN UP
         </button>
 
@@ -48,7 +48,6 @@
       <span v-if="isDarkMode" class="text-black">🌙</span>
       <span v-else class="text-black">🌞</span>
     </button>
-  </div>
 </template>
 
 <script>

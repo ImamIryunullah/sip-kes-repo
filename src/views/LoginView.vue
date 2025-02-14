@@ -1,8 +1,8 @@
 <template>
   <div :class="{'dark': isDarkMode}" class="w-screen h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
-    <div class="main-container w-full sm:w-[100%] md:w-[1700px] h-[750px] bg-white dark:bg-gray-800 relative overflow-hidden shadow-lg rounded-lg flex">
+    <!-- <div class="main-container w-full sm:w-[100%] md:w-[1700px] h-[750px] bg-white dark:bg-gray-800 relative overflow-hidden shadow-lg rounded-lg flex"> -->
       <!-- Left Section (Form Login) -->
-      <div class="w-full sm:w-full md:w-1/2 h-full flex flex-col justify-center items-center px-8 animate-fadeIn">
+      <div class="w-screen h-screen md:w-1/2 h-full flex flex-col justify-center items-center px-8 ">
         <img src="@/assets/logoswi.png" alt="SWI Logo" class="absolute top-6 w-24 h-auto mt-5" />
         <h2 class="text-2xl font-semibold text-[#03a980] dark:text-white mb-2">Login Sekarang!!</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Silakan masukkan kredensial Anda</p>
@@ -46,7 +46,7 @@
       <!-- Bagian Kanan (Gambar) -->
       <div class="w-1/2 h-full bg-[#03a980] rounded-l-[40px] flex flex-col justify-center items-center text-white animate-slideIn md:block hidden">
         <div class="w-[80%] h-[90%] flex flex-col items-center">
-          <div class="w-full h-full bg-[url('./assets/frame229.png')] bg-cover bg-no-repeat transition-transform transform hover:scale-110 hover:rotate-2"></div>
+          <div class="w-full h-full bg-[url('./assets/frame229.png')] bg-cover bg-no-repeat transition-transform transform"></div>
         </div>
       </div>
     </div>
@@ -59,7 +59,6 @@
       <span v-if="isDarkMode" class="text-black">🌙</span>
       <span v-else class="text-black">🌞</span>
     </button>
-  </div>
 </template>
 
 <script>

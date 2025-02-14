@@ -46,19 +46,19 @@
     </nav>
 
     <!-- Mobile Menu (Sidebar) -->
-    <div v-if="mobileMenuOpen" class="md:hidden fixed top-0 left-0 w-full h-screen bg-gray-700 bg-opacity-75 z-40 flex flex-col items-center py-6">
+    <div v-if="mobileMenuOpen" class="md:hidden fixed top-0 right-0 w-[250px] h-full bg-gray-700 bg-opacity-75 z-40 flex flex-col items-start py-6 px-4">
       <router-link
         v-for="(item, index) in menuItems"
         :key="index"
         :to="item.path"
-        class="text-white text-lg py-4 hover:bg-[#028970] w-full text-center"
+        class="text-white text-lg py-4 hover:bg-[#028970] w-full text-right"
         @click="closeMobileMenu"
       >
         {{ item.label }}
       </router-link>
-      <button @click="closeMobileMenu" class="text-white text-lg py-4 mt-4 w-full text-center">
+      <!-- <button @click="closeMobileMenu" class="text-white text-lg py-4 mt-4 w-full text-left">
         Close Menu
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
@@ -153,6 +153,32 @@ nav {
 
   .w-40 {
     width: 90%;
+  }
+
+  /* Mobile Sidebar styling */
+  .fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  /* .w-[250px] {
+    width: 250px;
+  } */
+
+  .h-full {
+    height: 100%;
+  }
+
+  .bg-gray-700 {
+    background-color: #374151;
+  }
+
+  /* Close Menu Button */
+  .text-white.text-lg.py-4.mt-4 {
+    text-align: center;
+    background-color: #028970;
+    border-radius: 8px;
   }
 }
 </style>

@@ -1,19 +1,25 @@
 <template>
   <NavbarView />
-  
+
   <div class="p-8 mt-[100px]">
     <div class="bg-gray-100 p-6 rounded-lg shadow">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-semibold">Chat</h2>
       </div>
-      <div class="flex border rounded-lg overflow-hidden h-[600px]">
+
+      <div class="flex flex-col lg:flex-row border rounded-lg overflow-hidden h-[600px]">
         <!-- Sidebar Chat List -->
-        <div class="w-1/3 bg-white border-r overflow-y-auto">
+        <div class="w-full lg:w-1/3 bg-white border-r overflow-y-auto sm:block">
           <div class="p-4 border-b flex items-center gap-2">
             <input type="text" class="w-full p-2 border rounded" placeholder="Search..." />
           </div>
           <ul>
-            <li v-for="chat in chatList" :key="chat.id" class="p-4 border-b flex items-center gap-3 cursor-pointer hover:bg-gray-100">
+            <li
+              v-for="chat in chatList"
+              :key="chat.id"
+              @click="selectChat(chat.id)"
+              class="p-4 border-b flex items-center gap-3 cursor-pointer hover:bg-gray-100"
+            >
               <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
               <div class="flex-grow">
                 <h3 class="font-semibold">{{ chat.name }}</h3>
@@ -23,9 +29,13 @@
             </li>
           </ul>
         </div>
-  
+
         <!-- Chat Content -->
-        <div class="w-2/3 bg-green-100 flex flex-col">
+        <div v-if="selectedChat" class="w-full lg:w-2/3 bg-green-100 flex flex-col">
+          <div class="flex justify-between p-4 border-b bg-white">
+            <button @click="backToChatList" class="text-[#03a980]">Back to Chat List</button>
+          </div>
+
           <div class="flex-grow overflow-y-auto p-4">
             <div v-for="message in messages" :key="message.id" class="mb-4">
               <div v-if="message.sender === 'me'" class="flex justify-end">
@@ -37,7 +47,7 @@
               </div>
             </div>
           </div>
-  
+
           <!-- Message Input -->
           <div class="p-4 bg-white flex items-center gap-2 border-t">
             <input type="text" v-model="newMessage" class="w-full p-2 border rounded" placeholder="Type a message..." />
@@ -48,7 +58,7 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import NavbarView from '@/components/NavbarView.vue';
 
@@ -70,36 +80,52 @@ export default {
         { id: 3, sender: 'me', text: 'Informasinya kami simpan' },
       ],
       newMessage: '',
+      selectedChat: null,
     };
   },
   methods: {
     sendMessage() {
       if (this.newMessage.trim()) {
         this.messages.push({ id: Date.now(), sender: 'me', text: this.newMessage });
-        this.notifyUser('New message sent!');
         this.newMessage = '';
       }
     },
     deleteChat(chatId) {
       this.chatList = this.chatList.filter(chat => chat.id !== chatId);
-      this.notifyUser('Chat deleted!');
     },
-    notifyUser(message) {
-      if (Notification.permission === 'granted') {
-        new Notification(message);
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            new Notification(message);
-          }
-        });
-      }
-    }
-  },
-  mounted() {
-    if (Notification.permission !== 'granted') {
-      Notification.requestPermission();
+    selectChat(chatId) {
+      this.selectedChat = chatId;
+      this.messages = this.getMessagesForChat(chatId); // Replace this with actual logic to fetch messages for the selected chat
+    },
+    backToChatList() {
+      this.selectedChat = null;
+      this.messages = []; // Reset messages when going back
+    },
+    getMessagesForChat(chatId) {
+      // Replace this with actual logic to fetch messages for the selected chat
+      return [
+        { id: 1, sender: 'other', text: 'This is a message from ' + chatId },
+        { id: 2, sender: 'me', text: 'This is a reply to ' + chatId },
+      ];
     }
   }
 };
 </script>
+
+<style scoped>
+/* Fade-in animation for the page */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+</style>

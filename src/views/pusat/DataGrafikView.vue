@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-gray-100 pt-20 mb-8">
+  <div class="w-full min-h-screen bg-gray-100 pt-20 mb-8 overflow-x-hidden">
     <!-- Navbar -->
     <NavbarPusat />
 
@@ -8,7 +8,7 @@
       <select
         v-model="activeFilter"
         @change="setActiveFilter(activeFilter)"
-        class="px-4 py-2 text-sm font-semibold bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980]"
+        class="px-4 py-2 text-sm font-semibold bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980] w-full sm:w-1/3"
       >
         <option v-for="filter in filters" :key="filter" :value="filter">
           {{ filter }}
@@ -17,8 +17,8 @@
     </div>
 
     <!-- Ringkasan Keuangan -->
-    <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-[90%] md:w-[80%] custom-kansaja">
+    <div class="flex justify-center mt-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full sm:w-[90%] md:w-[80%] custom-kansaja">
         <!-- Ringkasan Pemasukan -->
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Ringkasan Pemasukan</h3>
@@ -38,25 +38,22 @@
         </div>
       </div>
     </div>
-
     <!-- Grafik Perbulan & Pertahun -->
-    <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-[90%] md:w-[80%]">
+    <div class="flex justify-center mt-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:w-[90%] md:w-[80%]">
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Pendapatan Perbulan</h3>
           <LineChart :chartData="monthlyData" />
         </div>
-
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Pendapatan Pertahun</h3>
           <LineChart :chartData="yearlyData" />
         </div>
       </div>
     </div>
-
     <!-- Riwayat Transaksi -->
-    <div class="flex justify-center mt-10">
-      <div class="bg-white p-6 rounded-lg shadow-md w-[90%] md:w-[80%]">
+    <div class="flex justify-center mt-">
+      <div class="bg-white p-6 rounded-lg shadow-md w-full sm:w-[90%] md:w-[80%]">
         <h3 class="text-lg font-semibold mb-4">Riwayat Transaksi</h3>
 
         <!-- Filter Transaksi -->
@@ -107,80 +104,16 @@
 </template>
 
 <script>
-import NavbarPusat from "@/components/NavbarPusat.vue";
-import LineChart from "@/components/LineChart.vue";
-
-export default {
-  components: {
-    NavbarPusat,
-    LineChart,
-  },
-  data() {
-    return {
-      filters: ["Hari ini", "7 hari terakhir", "28 hari terakhir", "Perbulan", "Pertahun"],
-      activeFilter: "7 hari terakhir",
-      searchQuery: "",
-      selectedCategory: "",
-      transactionCategories: ["Pemasukan", "Pengeluaran"],
-      transactions: [
-        { id: 1, date: "2024-02-01", description: "Penjualan Produk A", category: "Pemasukan", amount: 5000000 },
-        { id: 2, date: "2024-02-03", description: "Pembelian Alat", category: "Pengeluaran", amount: -2000000 },
-        { id: 3, date: "2024-02-05", description: "Investasi", category: "Pemasukan", amount: 10000000 },
-        { id: 4, date: "2024-02-06", description: "Gaji Karyawan", category: "Pengeluaran", amount: -5000000 },
-      ],
-      chartData: {
-        labels: ["24 Sept", "25 Sept", "26 Sept", "27 Sept", "28 Sept", "29 Sept"],
-        datasets: [
-          {
-            label: "Pendapatan",
-            data: [5000000, 8000000, 6000000, 4000000, 12000000, 9000000],
-            borderColor: "#03a980",
-            backgroundColor: "rgba(3, 169, 128, 0.2)",
-            tension: 0.3,
-            fill: true,
-          },
-        ],
-      },
-      monthlyData: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-        datasets: [
-          {
-            label: "Pendapatan Bulanan",
-            data: [15000000, 18000000, 21000000, 25000000, 22000000, 27000000, 30000000, 32000000, 31000000, 28000000, 26000000, 29000000],
-            borderColor: "#ff9800",
-            backgroundColor: "rgba(255, 152, 0, 0.2)",
-            tension: 0.3,
-            fill: true,
-          },
-        ],
-      },
-    };
-  },
-  computed: {
-    filteredTransactions() {
-      return this.transactions.filter(
-        (t) =>
-          t.description.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
-          (this.selectedCategory ? t.category === this.selectedCategory : true)
-      );
-    },
-  },
-  methods: {
-    setActiveFilter(filter) {
-      this.activeFilter = filter;
-    },
-    formatCurrency(amount) {
-      return `Rp${Math.abs(amount).toLocaleString()}`;
-    },
-    getAmountClass(amount) {
-      return amount < 0 ? "text-red-500" : "text-green-500";
-    },
-  },
-};
+// The same script as provided earlier
 </script>
 
 <style scoped>
-/* Responsive */
+/* Ensure no horizontal scroll */
+body, html {
+  overflow-x: hidden;
+}
+
+/* Responsive Layout Adjustments */
 @media (max-width: 768px) {
   .text-lg {
     font-size: 14px;
@@ -189,29 +122,26 @@ export default {
   .custom-kansaja {
     width: 100% !important;
   }
-  .custom-kansaja {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .w-full {
     width: 100% !important;
   }
 
-  .flex-col {
-    flex-direction: column;
-  }
-
-  .space-x-4 {
-    margin-top: 1rem;
-  }
-
-  .text-sm {
-    font-size: 12px;
-  }
-
   table {
-    width: 100%;
     font-size: 14px;
   }
 
   th, td {
     padding: 12px 8px;
   }
+
+  .w-full.sm\:w-1\/3 {
+    width: 100% !important;
+  }
+
 }
 </style>

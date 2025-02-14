@@ -89,7 +89,6 @@ export default {
         "Direktorat, pendidikan, latihan, SDM & LPKSM",
         "Direktorat BPSK",
         "Perhimpunan Driver Online Indonesia (PDOI)",
-        "Lembaga Bantuan Hukum Nasional Indonesia (LBH-NI)",
         "Direktorat Pengawasan Makanan dan Obat",
         "Direktorat Pengawasan bank, finance dan koperasi",
         "Direktorat media & komunikasi (suara konsumen)",

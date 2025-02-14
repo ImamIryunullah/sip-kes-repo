@@ -28,10 +28,12 @@
         <div class="w-full mb-4">
           <input type="text" placeholder="Confirm Password" class="w-full h-14 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980]" />
         </div>
-  
-        <button class="w-full h-14 bg-[#03a980] text-white font-bold rounded-lg hover:bg-[#028a66] transition">
+        <a href="/login">
+          <button class="w-full h-14 bg-[#03a980] text-white font-bold rounded-lg hover:bg-[#028a66] transition">
           RESET PASSWORD
-        </button>
+        </button>          
+        </a>
+      
       </div>
     </div>
 </template>
