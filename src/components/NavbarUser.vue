@@ -71,7 +71,6 @@ export default {
       menuItems: [
         { label: "Pendaftaran", path: "/pendaftaran-anggota" },
         { label: "Riwayat", path: "/riwayat-pengajuan" },
-        { label: "Hubungi Kami", path: "/chat" },
         { label: "Layanan Pengaduan", path: "/user/form-pengaduan" },
         { label: "Pembayaran", path: "/user/transaksi" },
       ],

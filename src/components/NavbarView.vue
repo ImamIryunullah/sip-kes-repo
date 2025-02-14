@@ -24,13 +24,12 @@
       <!-- Profile & Logout for Desktop -->
       <div class="relative flex items-center space-x-4">
         <button @click="toggleDropdown" class="flex items-center space-x-2">
-          <img src="@/assets/profile-icon.png" alt="Profile" class="w-9 h-9 rounded-full border border-white" />
+          <img src="@/assets/profile-icon.png" alt="Profile" class="w-7 h-7 rounded-full border border-white" />
           <span class="text-white font-semibold hidden md:block">Admin</span>
         </button>
 
         <!-- Dropdown Menu -->
         <div v-if="dropdownOpen" class="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg py-2 z-50">
-          <router-link to="/admin/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</router-link>
           <button @click="logout" class="block px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-left">Logout</button>
         </div>
       </div>

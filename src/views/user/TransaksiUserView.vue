@@ -51,8 +51,8 @@
     data() {
       return {
         amount: '', // Jumlah pembayaran
-        selectedPaymentMethod: '', // Metode pembayaran yang dipilih
-        transactionStatus: null, // Status transaksi (success/failed)
+        selectedPaymentMethod: '', 
+        transactionStatus: null,
       };
     },
     methods: {

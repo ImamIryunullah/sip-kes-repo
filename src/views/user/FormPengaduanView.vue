@@ -1,21 +1,19 @@
 <template>
-  <div class="w-screen bg-gray-100 mt-12">
+  <div class="w-screen h-screen flex flex-col bg-gray-100 mt-10">
+    <!-- Navbar -->
     <NavbarUser />
 
     <!-- Content Section -->
-    <div class="flex flex-col items-center p-10 bg-gray-100 flex-grow">
+    <div class="flex flex-col items-center p-6 bg-gray-100 flex-grow mt-10">
       <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg animate-fadeInUp">
         <h2 class="text-2xl font-semibold text-[#03a980] text-center mb-6">Form Pengaduan</h2>
 
         <!-- Form Pengaduan -->
         <form @submit.prevent="submitForm" class="space-y-4">
-          
-          <!-- Kategori Pengaduan -->
           <div>
             <label for="nama" class="block text-sm font-semibold text-[#028a66]">Nama Pengadu</label>
             <input id="nama" v-model="form.nama" type="text" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Nama Pengadu" />
           </div>
-
           <div>
             <label for="kategori" class="block text-sm font-semibold text-[#028a66]">Kategori Pengaduan</label>
             <select id="kategori" v-model="form.kategori" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]">
@@ -27,14 +25,11 @@
               <option value="Lainnya">Lainnya</option>
             </select>
           </div>
-
-          <!-- Judul Pengaduan -->
           <div>
             <label for="judul" class="block text-sm font-semibold text-[#028a66]">Judul Pengaduan</label>
             <input id="judul" v-model="form.judul" type="text" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Judul Pengaduan" />
           </div>
 
-          <!-- Deskripsi Pengaduan -->
           <div>
             <label for="deskripsi" class="block text-sm font-semibold text-[#028a66]">Deskripsi Pengaduan</label>
             <textarea id="deskripsi" v-model="form.deskripsi" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Deskripsi masalah yang dihadapi" rows="4"></textarea>
@@ -46,14 +41,10 @@
             <input id="lampiran" type="file" @change="handleFileUpload" class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" />
             <p v-if="fileName" class="text-sm text-[#028a66] mt-2">File yang dipilih: {{ fileName }}</p>
           </div>
-
-          <!-- Harapan Penyelesaian -->
           <div>
             <label for="harapan" class="block text-sm font-semibold text-[#028a66]">Harapan Penyelesaian</label>
             <input id="harapan" v-model="form.harapan" type="text" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Harapan penyelesaian pengaduan" />
           </div>
-
-          <!-- Tindak Lanjut -->
           <div>
             <label for="tindakLanjut" class="flex items-center text-sm font-semibold text-[#028a66]">
               <input type="checkbox" v-model="form.tindakLanjut" class="mr-2" />
@@ -167,6 +158,11 @@ button:active {
   .input-field {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  /* Ensure the form section is full width on mobile */
+  .w-full {
+    width: 100% !important;
   }
 }
 </style>

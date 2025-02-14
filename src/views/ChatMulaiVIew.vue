@@ -1,49 +1,24 @@
 <template>
   <div class="w-screen h-screen flex flex-col bg-gray-100">
     <!-- Navbar -->
-    <NavbarUser />
+    <NavbarPortalView />
 
-    <!-- Pilihan Tujuan Kontak -->
-    <div v-if="!contactChoice" class="flex flex-col justify-center items-center p-8 space-y-6">
-      <h3 class="text-xl font-semibold">Ingin Menghubungi Siapa</h3>
-      <div class="space-x-4 md:space-x-6">
-        <button 
-          @click="selectContact('admin')" 
-          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">
-          Hubungi Admin
-        </button>
-        <button 
-          @click="selectContact('pusat')" 
-          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">
-          Hubungi Pusat
-        </button>
-      </div>
-    </div>
-
-    <!-- Informasi Sebelum Memulai Percakapan -->
-    <div v-if="contactChoice" class="flex flex-col justify-center items-center p-8 space-y-6">
-      <h3 class="text-xl font-semibold">Silakan pilih kalimat untuk memulai percakapan:</h3>
-      <div v-if="contactChoice === 'admin'" class="text-center text-gray-500">
-        <p>Hubungi Admin untuk masalah akun atau pertanyaan teknis terkait layanan kami. Admin akan merespon secepatnya.</p>
-        <img src="https://via.placeholder.com/150" alt="Admin" class="mt-4 rounded-full w-32 h-32 object-cover" />
-      </div>
-      <div v-if="contactChoice === 'pusat'" class="text-center text-gray-500">
-        <p>Hubungi Pusat untuk pertanyaan umum atau informasi terkait layanan kami. Tim Pusat siap membantu Anda.</p>
-        <img src="https://via.placeholder.com/150" alt="Pusat" class="mt-4 rounded-full w-32 h-32 object-cover" />
-      </div>
-      <div class="space-x-4 md:space-x-6">
+    <!-- Pilihan Kalimat untuk Memulai Percakapan -->
+    <div class="flex flex-col justify-center items-center p-8 space-y-6">
+      <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
         <button 
           v-for="(option, index) in messageOptions" 
           :key="index" 
-          @click="startChat(option)" 
-          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">
-          {{ option }}
+          @click="startChat(option, index)" 
+          :disabled="option.sent"  
+          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66] w-full sm:w-auto">
+          {{ option.text }}
         </button>
       </div>
     </div>
 
     <!-- Chat Container -->
-    <div v-if="contactChoice" class="flex flex-col flex-grow p-4 overflow-y-auto" ref="chatContainer">
+    <div v-if="contactChoice" class="px-2 sm:px-6 py-4 flex flex-col flex-grow p-4 overflow-y-auto max-w-full w-full" ref="chatContainer">
       <div v-for="(message, index) in messages" :key="index" class="mb-4 flex" :class="{'justify-end': message.isUser}">
         <div class="max-w-[75%] md:max-w-[60%] p-3 rounded-lg shadow-md" :class="message.isUser ? 'bg-[#03a980] text-white' : 'bg-white'">
           <p class="text-sm">{{ message.text }}</p>
@@ -69,11 +44,12 @@
 </template>
 
 <script>
-import NavbarUser from '@/components/NavbarUser.vue';
+import NavbarPortalView from '@/components/NavbarPortalView.vue';
+
 
 export default {
   components: {
-    NavbarUser
+    NavbarPortalView
   },
   data() {
     return {
@@ -81,36 +57,35 @@ export default {
       messages: [
         { text: "Halo! Ada yang bisa dibantu?", time: this.getCurrentTime(), isUser: false }
       ],
-      contactChoice: null, // Menyimpan pilihan kontak: 'admin' atau 'pusat'
-      messageOptions: [] // Menyimpan pilihan kalimat untuk memulai chat
+      contactChoice: true,  // langsung memulai chat
+      messageOptions: [  // Menampilkan opsi percakapan langsung
+        { text: "Saya ingin melaporkan masalah.", sent: false },
+        { text: "Saya ingin tahu informasi terbaru.", sent: false },
+        { text: "Ada pertanyaan tentang layanan.", sent: false }
+      ]
     };
   },
   methods: {
-    // Fungsi untuk memilih tujuan kontak
-    selectContact(contact) {
-      this.contactChoice = contact;
-      if (contact === "admin") {
-        this.messageOptions = [
-          "Saya ingin bertanya tentang akun saya.",
-          "Saya mengalami kesulitan teknis.",
-          "Ada masalah dengan layanan."
-        ];
-      } else if (contact === "pusat") {
-        this.messageOptions = [
-          "Saya ingin melaporkan masalah.",
-          "Saya ingin tahu informasi terbaru.",
-          "Ada pertanyaan tentang layanan."
-        ];
-      }
-    },
     // Fungsi untuk memulai chat dengan memilih kalimat
-    startChat(option) {
-      this.messages.push({ text: option, time: this.getCurrentTime(), isUser: true });
-      setTimeout(() => {
-        this.messages.push({ text: "Terima kasih, kami akan segera memproses permintaan Anda.", time: this.getCurrentTime(), isUser: false });
+    startChat(option, index) {
+      if (!option.sent) {
+        // Menambahkan pesan yang dipilih ke dalam chat
+        this.messages.push({ text: option.text, time: this.getCurrentTime(), isUser: true });
+
+        // Menandai opsi sebagai terkirim
+        this.messageOptions[index].sent = true;
+
+        // Menghapus dua opsi yang belum dipilih
+        this.messageOptions = [];
+
+        // Simulasi balasan dari admin
+        setTimeout(() => {
+          this.messages.push({ text: "Terima kasih, kami akan segera memproses permintaan Anda.", time: this.getCurrentTime(), isUser: false });
+          this.scrollToBottom();
+        }, 1000);
+
         this.scrollToBottom();
-      }, 1000);
-      this.scrollToBottom();
+      }
     },
     sendMessage() {
       if (this.newMessage.trim() !== "") {
@@ -134,43 +109,7 @@ export default {
           chatContainer.scrollTop = chatContainer.scrollHeight;
         }
       });
-    },
-    goBack() {
-      this.$router.push("/");
     }
   }
 };
 </script>
-
-<style scoped>
-/* Responsif untuk layar kecil */
-@media screen and (max-width: 768px) {
-
-  .space-x-4 {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .text-xl {
-    font-size: 1.25rem;
-  }
-
-  .text-sm {
-    font-size: 0.875rem;
-  }
-
-  .p-4 {
-    padding: 0.75rem;
-  }
-
-  .py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  .px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-</style>

@@ -14,6 +14,7 @@
       <a href="#" class="text-white hover:text-[#028a66] transition">Nasional</a>
       <a href="#" class="text-white hover:text-[#028a66] transition">Internasional</a>
       <a href="/tentang-kami" class="text-white hover:text-[#028a66] transition">Tentang Kami</a>
+      <a href="/chat" class="text-white hover:text-[#028a66] transition">Hubungi Kami</a>
     </div>
 
     <!-- Date Display and Login Icon -->
@@ -68,7 +69,8 @@ export default {
         { label: "Ekonomi", path: "#" },
         { label: "Nasional", path: "#" },
         { label: "Internasional", path: "#" },
-        { label: "Tentang Kami", path: "/tentang-kami" }
+        { label: "Tentang Kami", path: "/tentang-kami" },
+        { label: "Hubungi Kami", path: "/chat" }
       ]
     };
   },

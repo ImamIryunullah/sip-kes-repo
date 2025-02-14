@@ -14,8 +14,8 @@
       <!-- Right Section (Form) -->
       <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8 py-6 mt-24">
         <img src="@/assets/logoswi.png" alt="SWI Logo" class="w-24 h-auto mb-6 transition-all duration-500" />
-        <h2 class="text-4xl font-semibold text-[#03a980] dark:text-white mb-4 transition-all duration-500">Forgot Password</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 transition-all duration-500">Please enter your email</p>
+        <h2 class="text-4xl sm:text-3xl font-semibold text-[#03a980] dark:text-white mb-4 transition-all duration-500">Forgot Password</h2>
+        <p class="text-sm sm:text-xs text-gray-500 dark:text-gray-400 mb-6 transition-all duration-500">Please enter your email</p>
   
         <div class="w-full mb-4">
           <input type="email" placeholder="Email" class="w-full h-14 px-4 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980] transition-all duration-300" />
