@@ -1,61 +1,74 @@
 <template>
-  <div class="w-screen h-screen flex flex-col mt-5">
+  <div class="w-screen h-screen flex flex-col bg-gray-100">
     <!-- Navbar -->
     <NavbarUser />
 
-    <div class="flex flex-col items-center p-10 bg-gray-100 flex-grow mt-10">
-      <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold text-[#03a980] text-center mb-6">Profile</h2>
-        
-        <!-- Info User -->
-        <div class="mt-4 text-center">
-          <p class="text-lg font-semibold">{{ user.firstName }} {{ user.lastName }}</p>
-          <p class="text-gray-500">{{ user.username }}</p>
-          <p class="text-gray-500">{{ user.contactNumber }}</p>
-        </div>
+    <!-- Content Section -->
+    <div class="flex flex-col items-center p-6 bg-gray-100 flex-grow mt-10">
+      <div class="bg-white w-full max-w-2xl p-8 rounded-lg shadow-md animate-fadeInUp">
+        <h2 class="text-2xl font-semibold text-[#03a980] text-center mb-6">Your Profile</h2>
 
-        <!-- Tombol Aksi -->
-        <div class="mt-6 space-y-4">
-          <div class="p-4 bg-white rounded-lg shadow-md flex justify-between items-center cursor-pointer" @click="openEditModal">
-            <span>Edit Profile</span>
-            <span>&gt;</span>
+        <!-- Profile Information -->
+        <div class="space-y-6">
+          <!-- Full Name -->
+          <div>
+            <p class="text-sm text-gray-600">Full Name:</p>
+            <p class="text-lg font-semibold">{{ user.fullName }}</p>
           </div>
-          <div class="p-4 bg-white rounded-lg shadow-md flex justify-between items-center cursor-pointer" @click="printIDCard">
-            <span>Cetak ID Card</span>
-            <span>&gt;</span>
-          </div>
-          <div class="p-4 bg-white rounded-lg shadow-md flex justify-between items-center cursor-pointer">
-            <a href="/assets/idcardbelakangprovinsi.png" download>Unduh ID Card Belakang</a>
-            <span>&gt;</span>
-          </div>
-          <div class="p-4 bg-white rounded-lg shadow-md flex justify-between items-center cursor-pointer" @click="openChangePasswordModal">
-            <span>Ganti Password</span>
-            <span>&gt;</span>
-          </div>
-          <div class="p-4 bg-white rounded-lg shadow-md flex justify-between items-center cursor-pointer" @click="logout">
-            <span>Logout</span>
-            <span>&gt;</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Modal Edit Profile -->
-      <div v-if="isEditModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-          <h3 class="text-xl font-semibold text-center mb-4">Edit Profile</h3>
-          <div class="grid grid-cols-1 gap-4">
-            <div>
-              <label class="text-sm text-gray-600">Full Name</label>
-              <input type="text" v-model="user.fullName" class="input-field" />
-            </div>
-            <div>
-              <label class="text-sm text-gray-600">Email</label>
-              <input type="email" v-model="user.email" class="input-field" disabled />
-            </div>
+          <!-- Date of Birth -->
+          <div>
+            <p class="text-sm text-gray-600">Date of Birth:</p>
+            <p class="text-lg font-semibold">{{ user.dateOfBirth }}</p>
           </div>
-          <div class="mt-4 flex justify-between">
-            <button @click="saveProfile" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
-            <button @click="closeEditModal" class="bg-gray-400 text-white px-4 py-2 rounded-lg">Cancel</button>
+
+          <!-- NIK (National ID Number) -->
+          <div>
+            <p class="text-sm text-gray-600">NIK (National ID Number):</p>
+            <p class="text-lg font-semibold">{{ user.nik }}</p>
+          </div>
+
+          <!-- Province -->
+          <div>
+            <p class="text-sm text-gray-600">Province:</p>
+            <p class="text-lg font-semibold">{{ user.province }}</p>
+          </div>
+
+          <!-- City/District -->
+          <div>
+            <p class="text-sm text-gray-600">City/District:</p>
+            <p class="text-lg font-semibold">{{ user.city }}</p>
+          </div>
+
+          <!-- Address -->
+          <div>
+            <p class="text-sm text-gray-600">Address:</p>
+            <p class="text-lg font-semibold">{{ user.address }}</p>
+          </div>
+
+          <!-- Phone Number -->
+          <div>
+            <p class="text-sm text-gray-600">Phone Number:</p>
+            <p class="text-lg font-semibold">{{ user.contactNumber }}</p>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <p class="text-sm text-gray-600">Status:</p>
+            <p class="text-lg font-semibold">{{ user.status }}</p>
+          </div>
+
+          <!-- KTP Photo -->
+          <div>
+            <p class="text-sm text-gray-600">KTP Photo:</p>
+            <p class="text-lg font-semibold">{{ user.ktp ? "Uploaded" : "Not Uploaded" }}</p>
+          </div>
+
+          <!-- Edit Profile Button -->
+          <div class="mt-6">
+            <button @click="openEditModal" class="w-full bg-[#03a980] text-white font-semibold py-3 rounded-lg hover:bg-[#028a66] transition-all duration-300 transform hover:scale-105">
+              Edit Profile
+            </button>
           </div>
         </div>
       </div>
@@ -64,71 +77,53 @@
 </template>
 
 <script>
-import axios from "axios";
-import NavbarUser from "@/components/NavbarUser.vue";
+
+import NavbarUser from '@/components/NavbarUser.vue';
 
 export default {
   components: {
-    NavbarUser,
+    NavbarUser
   },
+
+  
   data() {
     return {
       user: {
-        username: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        contactNumber: "",
-      },
-      isEditModalOpen: false,
+        fullName: 'John Doe',
+        dateOfBirth: '1990-01-01',
+        nik: '1234567890123456',
+        province: 'Jawa Barat',
+        city: 'Bandung',
+        address: 'Jl. Merdeka No. 123',
+        contactNumber: '081234567890',
+        status: 'Single',
+        ktp: true
+      }
     };
   },
-  mounted() {
-    this.fetchUserData();
-  },
   methods: {
-    // Fetch user data without token
-    async fetchUserData() {
-      try {
-        const response = await axios.get("http://192.168.1.11:5000/users/${id}");
-        this.user = response.data.user || {}; // Handle user data
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        alert("Gagal mengambil data pengguna.");
-      }
-    },
     openEditModal() {
-      this.isEditModalOpen = true;
-    },
-    closeEditModal() {
-      this.isEditModalOpen = false;
-    },
-    // Save profile without token
-    async saveProfile() {
-      const formData = new FormData();
-      formData.append("fullName", this.user.firstName + ' ' + this.user.lastName);
-
-      try {
-        await axios.put("http://192.168.1.11:5000/users/update", formData);
-        alert("Profil berhasil diperbarui!");
-        this.isEditModalOpen = false;
-      } catch (error) {
-        console.error("Error updating profile:", error);
-        alert("Gagal memperbarui profil.");
-      }
-    },
-    logout() {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userData");
-      alert("Logout berhasil!");
-      this.$router.push("/login");
-    },
-  },
+      // Open the edit modal for user to update the profile
+      alert("Edit Profile functionality to be implemented.");
+    }
+  }
 };
 </script>
 
 <style scoped>
-.input-field {
-  @apply w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none;
+/* Fade-in animation for the page */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
 }
 </style>

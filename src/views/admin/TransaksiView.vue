@@ -1,17 +1,19 @@
 <template>
-    <NavbarView />
-  
-    <div class="p-8 mt-[100px]">
-      <div class="bg-gray-100 p-6 rounded-lg shadow">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold">Transaksi</h2>
-          <select class="border p-2 rounded">
-            <option>Keterangan Pembayaran</option>
-            <option>Sudah Dibayar</option>
-            <option>Belum Dibayar</option>
-          </select>
-        </div>
-        <table class="w-full bg-white border border-gray-300 rounded-lg">
+  <NavbarView />
+
+  <div class="p-8 mt-[100px]">
+    <div class="bg-gray-100 p-6 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Transaksi</h2>
+        <select class="border p-2 rounded">
+          <option>Keterangan Pembayaran</option>
+          <option>Sudah Dibayar</option>
+          <option>Belum Dibayar</option>
+        </select>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
           <thead>
             <tr class="border-b">
               <th class="py-2 px-4 text-left">ID</th>
@@ -37,30 +39,65 @@
         </table>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import NavbarView from '@/components/NavbarView.vue';
-  
-  export default {
-    components: {
-      NavbarView,
-    },
-    data() {
-      return {
-        transactionList: [
-          { id: '001', storeName: 'TRX-001', transactionCode: '002 Obat', transactionDate: '13 - 03 - 2024', taxIncome: '30.000' },
-          { id: '002', storeName: 'TRX-002', transactionCode: '005 Elektronik', transactionDate: '14 - 03 - 2024', taxIncome: '50.000' },
-          { id: '003', storeName: 'TRX-003', transactionCode: '007 Makanan', transactionDate: '15 - 03 - 2024', taxIncome: '25.000' }
-        ],
-      };
-    },
-    methods: {
-      deleteTransaction(id) {
-        this.transactionList = this.transactionList.filter(transaction => transaction.id !== id);
-        alert('Transaksi berhasil dihapus!');
-      }
-    },
-  };
-  </script>
-  
+  </div>
+</template>
+
+<script>
+import NavbarView from '@/components/NavbarView.vue';
+
+export default {
+  components: {
+    NavbarView,
+  },
+  data() {
+    return {
+      transactionList: [
+        { id: '001', storeName: 'TRX-001', transactionCode: '002 Obat', transactionDate: '13 - 03 - 2024', taxIncome: '30.000' },
+        { id: '002', storeName: 'TRX-002', transactionCode: '005 Elektronik', transactionDate: '14 - 03 - 2024', taxIncome: '50.000' },
+        { id: '003', storeName: 'TRX-003', transactionCode: '007 Makanan', transactionDate: '15 - 03 - 2024', taxIncome: '25.000' }
+      ],
+    };
+  },
+  methods: {
+    deleteTransaction(id) {
+      this.transactionList = this.transactionList.filter(transaction => transaction.id !== id);
+      alert('Transaksi berhasil dihapus!');
+    }
+  },
+};
+</script>
+
+<style scoped>
+/* Responsive Design with Tailwind */
+@media (max-width: 768px) {
+  /* Make the table scrollable horizontally */
+  table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+
+  /* Adjust font sizes for smaller screens */
+  .text-lg {
+    font-size: 14px;
+  }
+
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .min-w-full {
+    min-width: 100%;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+}
+</style>

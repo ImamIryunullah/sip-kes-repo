@@ -1,14 +1,22 @@
 <template>
-  <div class="justify-center w-screen h-screen flex flex-col bg-gray-100">
-    <!-- Header -->
+  <div class="w-screen h-screen flex flex-col bg-gray-100">
+    <!-- Navbar -->
     <NavbarUser />
 
     <!-- Pilihan Tujuan Kontak -->
     <div v-if="!contactChoice" class="flex flex-col justify-center items-center p-8 space-y-6">
       <h3 class="text-xl font-semibold">Ingin Menghubungi Siapa</h3>
-      <div class="space-x-4">
-        <button @click="selectContact('admin')" class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">Hubungi Admin</button>
-        <button @click="selectContact('pusat')" class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">Hubungi Pusat</button>
+      <div class="space-x-4 md:space-x-6">
+        <button 
+          @click="selectContact('admin')" 
+          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">
+          Hubungi Admin
+        </button>
+        <button 
+          @click="selectContact('pusat')" 
+          class="px-6 py-2 bg-[#03a980] text-white rounded-lg hover:bg-[#028a66]">
+          Hubungi Pusat
+        </button>
       </div>
     </div>
 
@@ -23,7 +31,7 @@
         <p>Hubungi Pusat untuk pertanyaan umum atau informasi terkait layanan kami. Tim Pusat siap membantu Anda.</p>
         <img src="https://via.placeholder.com/150" alt="Pusat" class="mt-4 rounded-full w-32 h-32 object-cover" />
       </div>
-      <div class="space-x-4">
+      <div class="space-x-4 md:space-x-6">
         <button 
           v-for="(option, index) in messageOptions" 
           :key="index" 
@@ -37,7 +45,7 @@
     <!-- Chat Container -->
     <div v-if="contactChoice" class="flex flex-col flex-grow p-4 overflow-y-auto" ref="chatContainer">
       <div v-for="(message, index) in messages" :key="index" class="mb-4 flex" :class="{'justify-end': message.isUser}">
-        <div class="max-w-[75%] p-3 rounded-lg shadow-md" :class="message.isUser ? 'bg-[#03a980] text-white' : 'bg-white'">
+        <div class="max-w-[75%] md:max-w-[60%] p-3 rounded-lg shadow-md" :class="message.isUser ? 'bg-[#03a980] text-white' : 'bg-white'">
           <p class="text-sm">{{ message.text }}</p>
           <p class="text-xs text-gray-400 mt-1 text-right">{{ message.time }}</p>
         </div>
@@ -64,7 +72,7 @@
 import NavbarUser from '@/components/NavbarUser.vue';
 
 export default {
-  components:{
+  components: {
     NavbarUser
   },
   data() {
@@ -134,11 +142,35 @@ export default {
 };
 </script>
 
-<!-- <style scoped>
+<style scoped>
 /* Responsif untuk layar kecil */
 @media screen and (max-width: 768px) {
-  .max-w-[75%] {
-    max-width: 85%;
+
+  .space-x-4 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
+  }
+
+  .p-4 {
+    padding: 0.75rem;
+  }
+
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
-</style> -->
+</style>

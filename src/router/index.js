@@ -31,6 +31,7 @@ import UseridCardView from '@/views/user/UseridCardView.vue'
 import UserKotaKabView from '@/views/user/UserKotaKabView.vue'
 import TransaksiUserView from '@/views/user/TransaksiUserView.vue';
 import PusatDataTransaksiView from '@/views/pusat/PusatDataTransaksiView.vue';
+import DataDiriView from '@/views/user/DataDiriView.vue';
 
 const routes = [
   { path: '/login', name: 'Login', component: LoginView },
@@ -59,6 +60,7 @@ const routes = [
   { path: "/pusat/data-pengaduan", name: "DataPengaduanView", component: DataPengaduanView }, 
   { path: "/user/form-pengaduan", name: "FormPengaduanUser", component: FormPengaduanView },
   { path: "/pusat/generate-id-card", name: "IdCardPusat", component: PusatcardView },
+  { path: "/user/complete-profile", name: "DataDiriView", component: DataDiriView },
   
   {
     path: "/user/generate-id-card",

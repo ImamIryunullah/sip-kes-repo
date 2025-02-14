@@ -1,5 +1,6 @@
 <template>
   <div class="w-screen h-screen flex flex-col bg-gray-100 mt-10">
+    <!-- Navbar -->
     <NavbarPusat />
     <div class="flex flex-col items-center p-6 mt-8">
       <div class="bg-white w-full max-w-7xl p-8 rounded-lg shadow-md">
@@ -145,4 +146,62 @@ img {
   width: 80px;
   height: 80px;
 }
+
+@media (max-width: 768px) {
+  /* Stack the table columns for mobile screens */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Make the images smaller for mobile devices */
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Adjust button sizes */
+  button {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  /* Adjust font size for table headings */
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tablet view */
+@media (min-width: 768px) and (max-width: 1024px) {
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+
+  th, td {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
+
 </style>

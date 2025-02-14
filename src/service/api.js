@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.1.8:5000";
+const baseURL = "http://192.168.1.50:3000";
 
 const API = axios.create({
   baseURL: baseURL,
@@ -48,5 +48,8 @@ export default {
   },
   getfullpathImage(img){
     return `${baseURL}${img}`
-  }
+  },
+  // getWilayah(){
+  //   return API.get("api/wilayah")
+  // }
 };

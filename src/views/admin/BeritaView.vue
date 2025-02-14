@@ -121,9 +121,9 @@ export default {
       errorMessage: "",
     };
   },
-  mounted() {
-    this.getNews();
-  },
+  // mounted() {
+  //   this.getNews();
+  // },
   computed: {
     totalPages() {
       return Math.ceil(this.newsList.length / this.itemsPerPage);
@@ -134,16 +134,16 @@ export default {
     },
   },
   methods: {
-    getNews() {
-      ApiService.getBerita()
-        .then(response => {
-          this.newsList = response.data;
-        })
-        .catch(error => {
-          this.errorMessage = "Failed to load news, please try again later."; 
-          console.error(error);
-        });
-    },
+    // getNews() {
+    //   ApiService.getBerita()
+    //     .then(response => {
+    //       this.newsList = response.data;
+    //     })
+    //     .catch(error => {
+    //       this.errorMessage = "Failed to load news, please try again later."; 
+    //       console.error(error);
+    //     });
+    // },
     openAddModal() {
       this.isEdit = false;
       this.modalNews = { id: null, title: '', description: '', date: '', category: '', image: null };

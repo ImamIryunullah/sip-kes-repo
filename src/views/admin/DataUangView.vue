@@ -1,26 +1,24 @@
 <template>
-  <div class="w-screen h-screen bg-gray-100 pt-20"> 
+  <div class="w-screen h-auto min-h-screen bg-gray-100 pt-20">
     <!-- Navbar -->
     <NavbarView />
 
-    <!-- Filter Waktu -->
-    <div class="flex justify-center space-x-4 mt-10">
-      <button
-        v-for="filter in filters"
-        :key="filter"
-        @click="setActiveFilter(filter)"
-        :class="[
-          'px-4 py-2 rounded-full text-sm font-semibold transition',
-          activeFilter === filter ? 'bg-[#03a980] text-white' : 'bg-gray-200 text-gray-700'
-        ]"
+    <!-- Filter Waktu (Dropdown) -->
+    <div class="flex justify-center mt-6">
+      <select
+        v-model="activeFilter"
+        @change="setActiveFilter(activeFilter)"
+        class="px-4 py-2 text-sm font-semibold bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980]"
       >
-        {{ filter }}
-      </button>
+        <option v-for="filter in filters" :key="filter" :value="filter">
+          {{ filter }}
+        </option>
+      </select>
     </div>
 
-    <!-- Kontainer Ringkasan Keuangan -->
+    <!-- Ringkasan Keuangan -->
     <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-[80%]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%] custom-width">
         <!-- Ringkasan Pemasukan -->
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Ringkasan Pemasukan</h3>
@@ -34,7 +32,7 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Ringkasan Pengeluaran</h3>
           <p class="text-gray-500 text-sm">Terakhir diperbarui 4 Feb 10:00 AM</p>
-          <h2 class="text-2xl font-bold text-black mt-2">Rp12.000.000</h2>
+          <h2 class="text-2xl font-bold text-black mt-2">Rp9.500.000</h2>
           <p class="text-gray-500 text-sm">Pengeluaran dalam {{ activeFilter }} terakhir</p>
           <LineChart :chartData="chartData" />
         </div>
@@ -43,7 +41,7 @@
 
     <!-- Grafik Perbulan dan Pertahun -->
     <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-[80%]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%]">
         <!-- Data Perbulan -->
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Pendapatan Perbulan</h3>
@@ -123,5 +121,35 @@ export default {
 </script>
 
 <style scoped>
-/* Tambahan Styling */
+/* Responsif untuk layar kecil */
+/* Corrected media queries without using Tailwind's specific class names */
+@media (max-width: 768px) {
+  .custom-width {
+    width: 100% !important;
+  }
+
+  .text-lg {
+    font-size: 1rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  .bg-white {
+    background-color: #fff;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Adjust width on medium screens */
+  .custom-width {
+    width: 90%;
+  }
+}
+
 </style>

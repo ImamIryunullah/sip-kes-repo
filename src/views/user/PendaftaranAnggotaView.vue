@@ -1,9 +1,9 @@
 <template>
-  <div class="w-screen h-screen flex flex-col mt-10">
+  <div class="w-screen h-screen flex flex-col mt-5">
     <!-- Navbar -->
     <NavbarUser />
 
-    <div class="flex flex-col items-center p-10 bg-gray-100 flex-grow">
+    <div class="flex flex-col items-center p-10 bg-gray-100 flex-grow mt-10">
       <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold text-[#03a980] text-center mb-6">Pendaftaran Anggota</h2>
 
@@ -25,20 +25,16 @@
             <!-- Provinsi -->
             <select v-if="userData.tipeuser === 'Provinsi'" v-model="userData.provinsi" class="input-field" required>
               <option disabled value="">Pilih Provinsi</option>
-              <option value="NTB">NTB</option>
-              <option value="Jawa Timur">Jawa Timur</option>
-              <option value="Sumatera Barat">Sumatera Barat</option>
+              <option v-for="provinsi in provinces" :key="provinsi.id_wilayah" :value="provinsi.nama_wilayah">
+                {{ provinsi.nama_wilayah || 'No Name Available' }}
+              </option>
             </select>
-
-            <!-- Kota/Kabupaten hanya muncul jika tipe pendaftaran adalah Kota/Kabupaten -->
             <select v-if="userData.tipeuser === 'Kota/Kabupaten'" v-model="userData.kotaKabupaten" class="input-field" required>
               <option disabled value="">Pilih Kota/Kabupaten</option>
               <option value="Kota Malang">Kota Malang</option>
               <option value="Surabaya">Surabaya</option>
               <option value="Gresik">Gresik</option>
             </select>
-
-            <!-- Jabatan LPKNI -->
             <select v-model="userData.jabatan" class="input-field" required>
               <option disabled value="">Pilih Jabatan LPKNI</option>
               <option v-for="jabatan in jabatanOptions" :key="jabatan" :value="jabatan">{{ jabatan }}</option>
@@ -66,7 +62,7 @@
 
 <script>
 import NavbarUser from '@/components/NavbarUser.vue';
-import ApiService from '@/service/api.js';
+import ApiService from '@/service/api.js'; // Import the API service
 
 export default {
   components: {
@@ -79,7 +75,7 @@ export default {
         nik: "",
         noTelepon: "",
         email: "",
-        tipePendaftaran: "",
+        tipeuser: "",
         provinsi: "",
         kotaKabupaten: "",
         jabatan: "",
@@ -92,7 +88,8 @@ export default {
         "Sekretariat",
         "Direktorat, pendidikan, latihan, SDM & LPKSM",
         "Direktorat BPSK",
-        "Perhimpunan Driver Online Indonesia (PDOI), Lembaga Bantuan Hukum Nasional Indonesia (LBH-NI)",
+        "Perhimpunan Driver Online Indonesia (PDOI)",
+        "Lembaga Bantuan Hukum Nasional Indonesia (LBH-NI)",
         "Direktorat Pengawasan Makanan dan Obat",
         "Direktorat Pengawasan bank, finance dan koperasi",
         "Direktorat media & komunikasi (suara konsumen)",
@@ -112,19 +109,23 @@ export default {
         "Biro Standarisasi Warung & Sertifikasi",
         "Perhimpunan Bekam Nasional Indonesia (PBNI)"
       ],
+      provinces: [], // To store the list of provinces
       isLoading: false // Adding loading state
     };
   },
   computed: {
     jabatanOptions() {
-      if (this.userData.tipePendaftaran === 'Provinsi') {
+      if (this.userData.tipeuser === 'Provinsi') {
         return this.jabatanProvinsi;
-      } else if (this.userData.tipePendaftaran === 'Kota/Kabupaten') {
+      } else if (this.userData.tipeuser === 'Kota/Kabupaten') {
         return this.jabatanKotaKabupaten;
       } else {
         return [];
       }
     }
+  },
+  mounted() {
+    this.fetchWilayah(); // Fetch provinces when component is mounted
   },
   methods: {
     handleFoto3x4Upload(event) {
@@ -139,6 +140,26 @@ export default {
         this.userData.fotoKtp = file;
       }
     },
+
+    async fetchWilayah() {
+      try {
+        const response = await ApiService.getWilayah(); // Fetching the list of provinces
+        console.log(response.data); // Log the data to check if it is structured as expected
+        if (Array.isArray(response.data)) {
+          this.provinces = response.data; // No need to map if it's already an array
+        } else if (response.data && response.data.data) {
+          // If response.data contains a 'data' key with the provinces array
+          this.provinces = response.data.data;
+        } else {
+          console.error("Unexpected response structure:", response.data);
+          alert("Unexpected response format from the server.");
+        }
+      } catch (error) {
+        console.error("Error fetching wilayah:", error);
+        alert("Terjadi kesalahan saat mengambil data wilayah.");
+      }
+    },
+
 
     async submitPendaftaran() {
       this.isLoading = true; // Set loading to true while submitting
@@ -189,4 +210,3 @@ button {
   transition: background-color 0.3s;
 }
 </style>
-
