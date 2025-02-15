@@ -91,7 +91,7 @@ export default {
       if (this.newMessage.trim() !== "") {
         this.messages.push({ text: this.newMessage, time: this.getCurrentTime(), isUser: true });
         setTimeout(() => {
-          this.messages.push({ text: "Admin sedang online, harap tunggu sebentar.", time: this.getCurrentTime(), isUser: false });
+          this.messages.push({ text: "Kami akan segera membalas, harap tunggu sebentar.", time: this.getCurrentTime(), isUser: false });
           this.scrollToBottom();
         }, 1000);
         this.newMessage = "";

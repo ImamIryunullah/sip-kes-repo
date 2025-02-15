@@ -16,14 +16,14 @@
       </button>
     </div>
 
-    <div class="p-8 mt-[100px]">
+    <div class="p-8 mt-6">
       <div class="bg-white p-6 rounded-lg shadow animate-fadeIn">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-lg font-semibold">Manajemen Chat Pusat</h2>
         </div>
 
         <!-- Responsive Chat Layout -->
-        <div class="flex flex-col lg:flex-row border rounded-lg overflow-hidden h-[600px] transition-all duration-500">
+        <div class="flex flex-col lg:flex-row border rounded-lg overflow-hidden h-[800px] transition-all duration-500">
 
           <!-- Sidebar Chat List (Visible on mobile) -->
           <div class="w-full lg:w-1/3 bg-gray-50 border-r overflow-y-auto p-4 animate-slideInLeft">
@@ -45,31 +45,31 @@
             </ul>
           </div>
 
-         <!-- Chat Content -->
-            <div v-if="activeChat" class="w-full lg:w-2/3 bg-gray-100 flex flex-col p-4 lg:h-[600px]">
-              <div class="flex justify-between mb-4">
-                <button @click="backToChatList" class="text-[#03a980] mb-4 lg:hidden">Back to Chat List</button>
-                <h3 class="text-lg font-bold text-gray-700">{{ activeChat.name }}</h3>
-              </div>
+          <!-- Chat Content -->
+          <div v-if="activeChat" class="w-full lg:w-2/3 bg-gray-100 flex flex-col p-4 lg:h-[1300px] min-h-screen">
+            <div class="flex justify-between mb-4">
+              <button @click="backToChatList" class="text-[#03a980] mb-4 lg:hidden">Back to Chat List</button>
+              <h3 class="text-lg font-bold text-gray-700">{{ activeChat.name }}</h3>
+            </div>
 
-              <div class="flex-grow overflow-y-auto">
-                <div v-for="message in activeChat.messages" :key="message.id" class="mb-4 animate-fadeInMessage">
-                  <div v-if="message.sender === 'pusat'" class="flex justify-end">
-                    <div class="bg-green-600 text-white p-3 rounded-lg max-w-xs transform transition-all duration-300">{{ message.text }}</div>
-                  </div>
-                  <div v-else class="flex items-center gap-2">
-                    <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
-                    <div class="bg-white p-3 rounded-lg max-w-xs transform transition-all duration-300">{{ message.text }}</div>
-                  </div>
+            <div class="flex-grow overflow-y-auto">
+              <div v-for="message in activeChat.messages" :key="message.id" class="mb-4 animate-fadeInMessage">
+                <div v-if="message.sender === 'pusat'" class="flex justify-end">
+                  <div class="bg-green-600 text-white p-3 rounded-lg max-w-xs transform transition-all duration-300">{{ message.text }}</div>
+                </div>
+                <div v-else class="flex items-center gap-2">
+                  <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+                  <div class="bg-white p-3 rounded-lg max-w-xs transform transition-all duration-300">{{ message.text }}</div>
                 </div>
               </div>
-
-              <!-- Message Input -->
-              <div class="p-4 bg-white flex items-center gap-2 border-t">
-                <input type="text" v-model="newMessage" class="w-full p-2 border rounded-lg" placeholder="Ketik pesan..." @keyup.enter="sendMessage" />
-                <button @click="sendMessage" class="bg-green-600 text-white px-4 py-2 rounded-lg transform transition-all duration-300">Kirim</button>
-              </div>
             </div>
+
+            <!-- Message Input -->
+            <div class="p-4 bg-white flex items-center gap-2 border-t mt-4">
+              <input type="text" v-model="newMessage" class="w-full p-3 border rounded-lg" placeholder="Ketik pesan..." @keyup.enter="sendMessage" />
+              <button @click="sendMessage" class="bg-green-600 text-white px-5 py-3 rounded-lg transform transition-all duration-300">Kirim</button>
+            </div>
+          </div>
 
           <!-- If no chat selected -->
           <div v-else class="flex-grow flex items-center justify-center text-gray-500">
