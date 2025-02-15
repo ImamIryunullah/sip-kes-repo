@@ -1,48 +1,47 @@
 <template>
-  <div class="w-screen h-screen flex flex-col bg-gray-100 mt-10">
+  <div class="w-full min-h-screen bg-gray-100 pt-20 mb-8">
     <!-- Navbar -->
     <NavbarPusat />
     <div class="flex flex-col items-center p-6 mt-8">
-      <div class="bg-white w-full max-w-7xl p-8 rounded-lg shadow-md">
-        <h2 class="text-3xl font-semibold text-[#03a980] text-center mb-8">Data Pendaftaran Anggota</h2>
+      <div class="bg-white w-full max-w-5xl p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-[#03a980] text-center mb-6">Data Pendaftaran Anggota</h2>
 
-        <!-- Tabel untuk menampilkan data pendaftaran anggota -->
         <div v-if="pendaftaranData.length > 0" class="overflow-x-auto">
-          <table class="min-w-full table-auto border-collapse mx-auto text-lg">
+          <table class="min-w-full table-auto border-collapse mx-auto text-sm">
             <thead class="bg-[#028a66] text-white">
               <tr>
-                <th class="px-8 py-6 text-left">Nama</th>
-                <th class="px-8 py-6 text-left">NIK</th>
-                <th class="px-8 py-6 text-left">Tipe Anggota</th>
-                <th class="px-8 py-6 text-left">Provinsi</th>
-                <th class="px-8 py-6 text-left">Kota/Kabupaten</th>
-                <th class="px-8 py-6 text-left">Instansi</th>
-                <th class="px-8 py-6 text-left">Jabatan</th>
-                <th class="px-8 py-6 text-left">Status</th>
-                <th class="px-8 py-6 text-left">Foto 3x4</th>
-                <th class="px-8 py-6 text-left">Foto KTP</th>
-                <th class="px-8 py-6 text-left">Aksi</th>
+                <th class="px-4 py-3 text-left">Nama</th>
+                <th class="px-4 py-3 text-left">NIK</th>
+                <th class="px-4 py-3 text-left">Tipe Anggota</th>
+                <th class="px-4 py-3 text-left">Provinsi</th>
+                <th class="px-4 py-3 text-left">Kota/Kabupaten</th>
+                <th class="px-4 py-3 text-left">Instansi</th>
+                <th class="px-4 py-3 text-left">Jabatan</th>
+                <th class="px-4 py-3 text-left">Status</th>
+                <th class="px-4 py-3 text-left">Foto 3x4</th>
+                <th class="px-4 py-3 text-left">Foto KTP</th>
+                <th class="px-4 py-3 text-left">Aksi</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(pendaftaran, index) in pendaftaranData" :key="index" class="border-b hover:bg-gray-100">
-                <td class="px-8 py-6">{{ pendaftaran.nama }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.nik }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.anggotaType }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.provinsi }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.kotaKabupaten }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.instansi }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.jabatan }}</td>
-                <td class="px-8 py-6">{{ pendaftaran.status }}</td>
-                <td class="px-8 py-6">
-                  <img :src="pendaftaran.foto3x4Url" alt="Foto 3x4" class="w-20 h-20 object-cover rounded-full" />
+                <td class="px-4 py-3">{{ pendaftaran.nama }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.nik }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.anggotaType }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.provinsi }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.kotaKabupaten }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.instansi }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.jabatan }}</td>
+                <td class="px-4 py-3">{{ pendaftaran.status }}</td>
+                <td class="px-4 py-3">
+                  <img :src="pendaftaran.foto3x4Url" alt="Foto 3x4" class="w-16 h-16 object-cover rounded-full" />
                 </td>
-                <td class="px-8 py-6">
-                  <img :src="pendaftaran.fotoKtpUrl" alt="Foto KTP" class="w-20 h-20 object-cover rounded-full" />
+                <td class="px-4 py-3">
+                  <img :src="pendaftaran.fotoKtpUrl" alt="Foto KTP" class="w-16 h-16 object-cover rounded-full" />
                 </td>
-                <td class="px-8 py-6 flex space-x-4 justify-center">
-                  <button @click="approvePendaftaran(pendaftaran)" class="bg-green-500 text-white px-4 py-3 rounded-md hover:bg-green-600 transition">Setujui</button>
-                  <button @click="rejectPendaftaran(pendaftaran)" class="bg-red-500 text-white px-4 py-3 rounded-md hover:bg-red-600 transition">Tolak</button>
+                <td class="px-4 py-3 flex space-x-2 justify-center">
+                  <button @click="approvePendaftaran(pendaftaran)" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">Setujui</button>
+                  <button @click="rejectPendaftaran(pendaftaran)" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition">Tolak</button>
                 </td>
               </tr>
             </tbody>
@@ -103,7 +102,7 @@ export default {
 </script>
 
 <style scoped>
-/* Styling untuk tabel dan kolom yang lebih besar */
+/* Styling untuk tabel dan kolom yang lebih kecil */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -111,12 +110,13 @@ table {
 }
 
 th, td {
-  padding: 16px;
+  padding: 8px 12px;
 }
 
 th {
   background-color: #028a66;
   color: white;
+  text-align: left;
 }
 
 td {
@@ -128,8 +128,8 @@ tr:hover {
 }
 
 button {
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 10px 16px;
+  font-size: 14px;
   border-radius: 8px;
 }
 
@@ -138,13 +138,13 @@ button:hover {
 }
 
 button + button {
-  margin-left: 12px;
+  margin-left: 8px;
 }
 
 img {
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
 }
 
 @media (max-width: 768px) {
@@ -157,25 +157,25 @@ img {
   }
 
   th, td {
-    padding: 10px;
-    font-size: 14px;
+    padding: 6px;
+    font-size: 12px;
   }
 
   /* Make the images smaller for mobile devices */
   img {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 
   /* Adjust button sizes */
   button {
-    font-size: 14px;
-    padding: 10px 18px;
+    font-size: 12px;
+    padding: 8px 14px;
   }
 
   /* Adjust font size for table headings */
   .text-3xl {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -188,18 +188,18 @@ img {
   }
 
   th, td {
-    padding: 12px;
-    font-size: 15px;
+    padding: 10px;
+    font-size: 14px;
   }
 
   img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
 
   button {
-    padding: 12px 20px;
-    font-size: 15px;
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
 </style>

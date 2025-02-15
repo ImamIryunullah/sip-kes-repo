@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-auto min-h-screen bg-gray-100 pt-20">
+  <div class="w-screen h-full min-h-screen bg-gray-100 pt-20">
     <!-- Navbar -->
     <NavbarView />
 
@@ -17,8 +17,8 @@
     </div>
 
     <!-- Ringkasan Keuangan -->
-    <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%] custom-width">
+    <div class="flex justify-center mt-6">
+      <div class="kelas grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%] custom-width">
         <!-- Ringkasan Pemasukan -->
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Ringkasan Pemasukan</h3>
@@ -40,8 +40,8 @@
     </div>
 
     <!-- Grafik Perbulan dan Pertahun -->
-    <div class="flex justify-center mt-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%]">
+    <div class=" flex justify-center mt-6 mb-6">
+      <div class="kelas grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-[90%] md:w-[80%] custom-width">
         <!-- Data Perbulan -->
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold">Pendapatan Perbulan</h3>
@@ -124,10 +124,16 @@ export default {
 /* Responsif untuk layar kecil */
 /* Corrected media queries without using Tailwind's specific class names */
 @media (max-width: 768px) {
-  .custom-width {
+  /* Adjust the grid layout for small screens */
+  .grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .kelas {
     width: 100% !important;
   }
 
+  /* Adjust font sizes for small screens */
   .text-lg {
     font-size: 1rem;
   }
@@ -143,12 +149,40 @@ export default {
   .bg-white {
     background-color: #fff;
   }
+
+  /* Adjust padding for mobile screens */
+  .p-6 {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 1024px) {
-  /* Adjust width on medium screens */
-  .custom-width {
-    width: 90%;
+  /* Adjust layout for medium screens (tablets) */
+  .grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .kelas {
+    width: 90% !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* For desktop sizes */
+  .grid-cols-1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kelas {
+    width: 80%;
+  }
+
+  .text-lg {
+    font-size: 1.2rem;
+  }
+
+  .text-2xl {
+    font-size: 1.5rem;
   }
 }
 

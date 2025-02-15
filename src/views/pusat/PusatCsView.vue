@@ -1,16 +1,17 @@
 <template>
-  <div class="w-screen min-h-screen flex flex-col bg-gray-100">
-    <!-- Navbar -->
-    <NavbarPusat />
+  <NavbarPusat />
 
+  <div class="w-screen min-h-screen flex flex-col bg-gray-100">
     <!-- Filter Waktu -->
     <div class="w-screen flex justify-center space-x-4 mt-6">
       <button
         v-for="filter in filters"
         :key="filter"
         @click="setActiveFilter(filter)"
-        :class="[ 'px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300', 
-                  activeFilter === filter ? 'bg-[#03a980] text-white' : 'bg-gray-200 text-gray-700 hover:bg-[#028a66]']"
+        :class="[
+          'px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300',
+          activeFilter === filter ? 'bg-[#03a980] text-white' : 'bg-gray-200 text-gray-700 hover:bg-[#028a66]'
+        ]"
       >
         {{ filter }}
       </button>
@@ -23,10 +24,10 @@
         </div>
 
         <!-- Responsive Chat Layout -->
-        <div class="flex flex-col lg:flex-row border rounded-lg overflow-hidden h-[800px] transition-all duration-500">
+        <div class="flex flex-col md:flex-row border rounded-lg overflow-hidden h-auto transition-all duration-500">
 
-          <!-- Sidebar Chat List (Visible on mobile) -->
-          <div class="w-full lg:w-1/3 bg-gray-50 border-r overflow-y-auto p-4 animate-slideInLeft">
+          <!-- Sidebar Chat List -->
+          <div class="w-full md:w-1/3 bg-gray-50 border-r overflow-y-auto p-4 animate-slideInLeft">
             <input type="text" v-model="searchQuery" class="w-full p-2 border rounded-lg mb-4 transition-all duration-300" placeholder="Cari chat..." />
             <ul class="space-y-2">
               <li 
@@ -46,9 +47,9 @@
           </div>
 
           <!-- Chat Content -->
-          <div v-if="activeChat" class="w-full lg:w-2/3 bg-gray-100 flex flex-col p-4 lg:h-[1300px] min-h-screen">
+          <div v-if="activeChat" class="w-full md:w-2/3 bg-gray-100 flex flex-col p-4 lg:h-auto min-h-screen">
             <div class="flex justify-between mb-4">
-              <button @click="backToChatList" class="text-[#03a980] mb-4 lg:hidden">Back to Chat List</button>
+              <button @click="backToChatList" class="text-[#03a980] mb-4 md:hidden">Back to Chat List</button>
               <h3 class="text-lg font-bold text-gray-700">{{ activeChat.name }}</h3>
             </div>
 
