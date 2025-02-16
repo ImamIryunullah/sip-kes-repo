@@ -25,6 +25,7 @@
             <!-- Provinsi -->
             <select v-if="userData.tipeuser === 'Provinsi'" v-model="userData.provinsi" class="input-field" required>
               <option disabled value="">Pilih Provinsi</option>
+    -->
               <option v-for="provinsi in provinces" :key="provinsi.id_wilayah" :value="provinsi.nama_wilayah">
                 {{ provinsi.nama_wilayah || 'No Name Available' }}
               </option>

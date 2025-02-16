@@ -15,22 +15,18 @@
     <div class="w-full h-px bg-[#e7e7e7] mb-6"></div>
   
     <div class="flex flex-col gap-4">
-      <!-- Title input -->
       <div class="flex w-full p-[12px] gap-[8px] items-center bg-[#fff] rounded-[12px] border border-[#3d3e3e] relative">
         <input class="w-full h-[42px] bg-transparent border-none px-4" placeholder="Judul" />
       </div>
       
-      <!-- Description textarea -->
       <div class="flex w-full h-[152px] p-[12px] gap-[8px] items-start bg-[#fff] rounded-[12px] border border-[#3d3e3e] relative">
         <textarea class="w-full h-full bg-transparent border-none px-4" placeholder="Deskripsi"></textarea>
       </div>
 
-      <!-- Date input -->
       <div class="flex w-full p-[12px] gap-[8px] items-center bg-[#fff] rounded-[12px] border border-[#3d3e3e] relative">
         <input type="date" class="w-full h-[42px] bg-transparent border-none px-4 text-gray-700" placeholder="Tanggal Publikasi DD/MM/YY" />
       </div>
-      
-      <!-- File input -->
+
       <div class="flex w-full p-[12px] gap-[8px] items-center bg-[#fff] rounded-[12px] border border-[#3d3e3e] relative">
         <input type="file" class="w-full h-[40px] bg-transparent border-none px-4" placeholder="Gambar.jpg" />
       </div>
