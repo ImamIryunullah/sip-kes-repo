@@ -14,9 +14,9 @@
         <div v-if="paginatedComplaints.length > 0" class="space-y-4">
           <div v-for="(complaint, index) in paginatedComplaints" :key="index" class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-300">
             <p><strong>ID Pengaduan:</strong> {{ complaint.id }}</p>
+            <p><strong>Nama Pengadu:</strong> {{ complaint.NamaPengadu }} </p>
             <p><strong>Daerah:</strong> {{ complaint.daerah }}</p>
             <p><strong>Kategori:</strong> {{ complaint.kategori }}</p>
-            <p><strong>Nama Pengguna:</strong> {{ complaint.firstName }} {{ complaint.lastName }}</p>
             <p><strong>Judul:</strong> {{ complaint.judul }}</p>
             <p><strong>Deskripsi:</strong> {{ complaint.deskripsi }}</p>
             <p><strong>Harapan Penyelesaian:</strong> {{ complaint.harapan }}</p>
@@ -60,8 +60,7 @@ export default {
           id: "001",
           daerah: "Malang",
           kategori: "Layanan Pendidikan",
-          firstName: "John",
-          lastName: "Doe",
+          NamaPengadu: "Johnnn",
           judul: "Keterlambatan Sertifikat",
           deskripsi: "Sertifikat saya terlambat diterima meskipun sudah menyelesaikan pelatihan.",
           harapan: "Saya berharap sertifikat dapat diterima segera.",
@@ -71,10 +70,9 @@ export default {
         },
         {
           id: "002",
+          NamaPengadu: "Tqaaa",
           daerah: "Gresik",
           kategori: "Fasilitas",
-          firstName: "Jane",
-          lastName: "Smith",
           judul: "Fasilitas Tidak Memadai",
           deskripsi: "Kelas yang saya hadiri memiliki fasilitas yang sangat buruk, AC tidak berfungsi.",
           harapan: "Perbaikan fasilitas di ruang kelas.",
@@ -84,7 +82,7 @@ export default {
         }
       ],
       currentPage: 1,
-      itemsPerPage: 2
+      itemsPerPage: 10
     };
   },
   computed: {

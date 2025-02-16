@@ -73,6 +73,7 @@ export default {
         { label: "Riwayat", path: "/riwayat-pengajuan" },
         { label: "Layanan Pengaduan", path: "/user/form-pengaduan" },
         { label: "Pembayaran", path: "/user/transaksi" },
+        { label: "Tanggapan Pengaduan", path: "/user/feedback" }
       ],
       dropdownOpen: false,
       mobileMenuOpen: false,

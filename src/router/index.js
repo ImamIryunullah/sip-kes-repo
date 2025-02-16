@@ -32,6 +32,7 @@ import UserKotaKabView from '@/views/user/UserKotaKabView.vue'
 import TransaksiUserView from '@/views/user/TransaksiUserView.vue';
 import PusatDataTransaksiView from '@/views/pusat/PusatDataTransaksiView.vue';
 import DataDiriView from '@/views/user/DataDiriView.vue';
+import FeedbackPengaduan from '@/views/user/FeedbackPengaduan.vue';
 
 const routes = [
   { path: '/login', name: 'Login', component: LoginView },
@@ -81,7 +82,9 @@ const routes = [
   
   { path: "/user/generate-id-card-kota", name: "UseridCardKotaView", component: UserKotaKabView},
   { path: "/user/transaksi", name: "UserTransaksi", component: TransaksiUserView},
-  { path: "/pusat/data-transaksi", name: "PusatDataTransaksi", component: PusatDataTransaksiView}
+  { path: "/pusat/data-transaksi", name: "PusatDataTransaksi", component: PusatDataTransaksiView},
+  { path: "/user/feedback", name: "FeedBackPengaduan", component: FeedbackPengaduan}
+
 ]
 
 const router = createRouter({
