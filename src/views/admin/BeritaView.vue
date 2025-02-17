@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-gray-100">
+  <div class="flex bg-green-100">
     <!-- Navbar -->
     <NavbarView />
 
@@ -44,8 +44,8 @@
     </div>
 
     <!-- Table Daftar Berita -->
-    <div class="p-8 mt-[100px]">
-      <div class="bg-gray-100 p-6 rounded-lg shadow">
+    <div class="min-h-screen w-screen p-8 mt-5">
+      <div class="bg-green-200 p-6 rounded-lg shadow">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-lg font-semibold">Daftar Berita</h2>
           <button @click="openAddModal" class="bg-[#03a980] text-white px-4 py-2 rounded-md hover:bg-[#028970]">
@@ -94,17 +94,99 @@
 </template>
 
 <script>
+
 import NavbarView from '@/components/NavbarView.vue';
 import ApiService from '@/service/api.js'; 
 
 
 export default {
   components: {
-    NavbarView,
+    NavbarView
   },
   data() {
     return {
-      newsList: [],
+      newsList: [
+        {
+          id: 1,
+          title: "Presiden Resmikan Proyek Infrastruktur Baru",
+          description: "Presiden meresmikan proyek infrastruktur di Jakarta...",
+          date: "2025-02-10",
+          category: "Politik",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 2,
+          title: "Timnas Indonesia Lolos ke Final Piala Asia",
+          description: "Tim nasional Indonesia berhasil mengalahkan Jepang...",
+          date: "2025-02-09",
+          category: "Olahraga",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 3,
+          title: "Teknologi AI Terbaru Diumumkan oleh Google",
+          description: "Google memperkenalkan kecerdasan buatan terbaru...",
+          date: "2025-02-08",
+          category: "Teknologi",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 4,
+          title: "Banjir Besar Melanda Jakarta, Ribuan Warga Mengungsi",
+          description: "Hujan deras menyebabkan banjir di berbagai wilayah...",
+          date: "2025-02-07",
+          category: "Nasional",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 5,
+          title: "Konflik Rusia-Ukraina Memanas Kembali",
+          description: "Ketegangan antara Rusia dan Ukraina kembali meningkat...",
+          date: "2025-02-06",
+          category: "Internasional",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 6,
+          title: "Startup Indonesia Raih Pendanaan Seri B",
+          description: "Startup teknologi Indonesia mendapatkan investasi besar...",
+          date: "2025-02-05",
+          category: "Teknologi",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 7,
+          title: "Pemerintah Keluarkan Regulasi Baru Terkait Pajak Digital",
+          description: "Regulasi baru diterapkan untuk mengatur transaksi digital...",
+          date: "2025-02-04",
+          category: "Politik",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 8,
+          title: "Messi Memenangkan Ballon d'Or Lagi",
+          description: "Lionel Messi kembali memenangkan penghargaan Ballon d'Or...",
+          date: "2025-02-03",
+          category: "Olahraga",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 9,
+          title: "NASA Temukan Planet Baru yang Berpotensi Dihuni",
+          description: "Ilmuwan NASA mengumumkan penemuan planet baru...",
+          date: "2025-02-02",
+          category: "Teknologi",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        },
+        {
+          id: 10,
+          title: "Perubahan Iklim Mengancam Kehidupan Laut",
+          description: "Studi terbaru menunjukkan dampak besar perubahan iklim...",
+          date: "2025-02-01",
+          category: "Internasional",
+          gambar: [{ url: "https://via.placeholder.com/150" }]
+        }
+      ],
       currentPage: 1,
       itemsPerPage: 20,
       showModal: false,
@@ -134,16 +216,6 @@ export default {
     },
   },
   methods: {
-    // getNews() {
-    //   ApiService.getBerita()
-    //     .then(response => {
-    //       this.newsList = response.data;
-    //     })
-    //     .catch(error => {
-    //       this.errorMessage = "Failed to load news, please try again later."; 
-    //       console.error(error);
-    //     });
-    // },
     openAddModal() {
       this.isEdit = false;
       this.modalNews = { id: null, title: '', description: '', date: '', category: '', image: null };

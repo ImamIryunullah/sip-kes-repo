@@ -1,6 +1,6 @@
 <template>
   <div class="flex bg-green-100">
-    <NavbarPusat />
+    <NavbarView />
 
     <div class="flex flex-col items-center p-6 md:p-10 bg-green-100 flex-grow mt-12">
       <div class="bg-white w-full max-w-6xl p-6 md:p-8 rounded-lg shadow-md">
@@ -64,9 +64,10 @@
 </template>
 
 <script>
-import NavbarPusat from '@/components/NavbarPusat.vue';
+
+import NavbarView from '@/components/NavbarView.vue';
 export default {
-  components: { NavbarPusat },
+  components: { NavbarView },
   data() {
     return {
       selectedFilter: 'all',

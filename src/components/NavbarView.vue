@@ -1,74 +1,57 @@
 <template>
-  <div class="main-container w-full bg-white relative overflow-hidden mx-auto">
-    <!-- Navbar -->
-    <nav class="w-full h-[70px] bg-[#03a980] flex items-center px-6 justify-between shadow-md fixed top-0 left-0 right-0 z-50">
-      
-      <!-- Logo -->
-      <div class="flex items-center gap-6">
-        <img src="@/assets/swiputih.png" alt="Logo" class="w-[45px] h-[45px] object-contain" />
-
-        <!-- Navbar Links for Desktop -->
-        <div class="hidden md:flex gap-3">
-          <router-link 
-            v-for="(item, index) in menuItems" 
-            :key="index"
-            :to="item.path"
-            class="relative px-4 py-2 text-sm font-semibold rounded-md transition"
-            :class="{ 'bg-white text-[#151619] shadow-md': $route.path === item.path, 'text-white hover:bg-[#028970] transition': $route.path !== item.path }"
-          >
-            {{ item.label }}
-          </router-link>
-        </div>
-      </div>
-
-      <!-- Profile & Logout for Desktop -->
-      <div class="relative flex items-center space-x-4">
-        <button @click="toggleDropdown" class="flex items-center space-x-2">
-          <img src="@/assets/profile-icon.png" alt="Profile" class="w-7 h-7 rounded-full border border-white" />
-          <span class="text-white font-semibold hidden md:block">Admin</span>
+  <div class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <div 
+      class="bg-[#03a980] text-white fixed top-0 left-0 z-50 transition-all duration-300"
+      :class="sidebarOpen ? 'w-64 min-h-screen px-4 py-6 flex flex-col' : 'w-16 min-h-screen flex flex-col items-center py-6'"
+    >
+      <!-- Logo & Hamburger Menu -->
+      <div class="flex justify-between items-center mb-6 px-2">
+        <span v-if="sidebarOpen" class="ml-3 text-gray-200 font-bold text-lg">ADMIN</span>
+        <button @click="toggleSidebar" class="p-2 focus:outline-none text-white">
+          <i class="fas" :class="sidebarOpen ? 'fa-angle-left' : 'fa-bars'"></i>
         </button>
-
-        <!-- Dropdown Menu -->
-        <div v-if="dropdownOpen" class="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg py-2 z-50">
-          <button @click="logout" class="block px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-left">Logout</button>
-        </div>
       </div>
 
-      <!-- Hamburger Icon for Mobile -->
-      <button @click="toggleSidebar" class="md:hidden text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </nav>
+      <!-- Navigasi Menu -->
+      <nav class="flex flex-col flex-grow space-y-2">
+        <router-link 
+          v-for="(item, index) in menuItems" 
+          :key="index"
+          :to="item.path"
+          class="flex items-center py-3 px-4 rounded-md transition-all duration-200 hover:bg-gray-700"
+          :class="{ 'bg-green-500 text-black': $route.path === item.path }"
+        >
+          <i :class="item.icon" class="w-6 text-lg"></i>
+          <span v-if="sidebarOpen" class="ml-3">{{ item.label }}</span>
+        </router-link>
+      </nav>
 
-    <!-- Sidebar for Mobile -->
-    <div v-if="sidebarOpen" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-40 md:hidden">
-      <div class="w-[250px] bg-white fixed top-0 right-0 bottom-0 z-50 shadow-lg">
-        <div class="flex justify-between items-center p-4 border-b">
-          <img src="@/assets/swiputih.png" alt="Logo" class="w-[45px] h-[45px] object-contain" />
-          <button @click="toggleSidebar" class="text-[#03a980]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+      <!-- Profile & Logout -->
+      <div class="mt-auto pt-6 border-t border-gray-600">
+        <router-link to="/profile" class="flex items-center py-3 px-4 rounded-md hover:bg-gray-700">
+          <img src="@/assets/profile-icon.png" alt="Profile" class="w-8 h-8 rounded-full border border-white" />
+          <span v-if="sidebarOpen" class="ml-3 font-semibold">ADMIN</span>
+        </router-link>
+
+        <!-- Display Current Date & Time -->
+        <div v-if="sidebarOpen" class="text-gray-400 text-xs mt-4 ml-3">
+          <p>{{ currentDate.toLocaleString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+          <p>{{ currentDate.toLocaleTimeString('id-ID') }} WIB</p>
         </div>
-        
-        <!-- Sidebar Links -->
-        <div class="flex flex-col p-4">
-          <router-link 
-            v-for="(item, index) in menuItems" 
-            :key="index"
-            :to="item.path"
-            class="py-3 text-sm font-semibold text-[#03a980] hover:bg-gray-100 rounded-md transition"
-          >
-            {{ item.label }}
-          </router-link>
-          <div class="mt-4">
-            <button @click="logout" class="text-red-500 w-full text-left py-3">Logout</button>
-          </div>
-        </div>
+
+        <!-- Logout Button -->
+        <button @click="logout" class="flex items-center py-3 px-4 mt-4 rounded-md text-red-500 hover:bg-gray-700 w-full">
+          <i class="fas fa-sign-out-alt w-6"></i>
+          <span v-if="sidebarOpen">Logout</span>
+        </button>
       </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 transition-all duration-300"
+         :class="sidebarOpen ? 'ml-64 p-6' : 'ml-16 p-6'">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -77,48 +60,73 @@
 export default {
   data() {
     return {
-      sidebarOpen: false,
-      dropdownOpen: false,
+      sidebarOpen: window.innerWidth > 768, 
+      currentDate: new Date(),
       menuItems: [
-        { label: "Berita", path: "/admin/berita" },
-        { label: "Chat", path: "/admin/customerservices" },
-        { label: "Transaksi", path: "/admin/transaksi" },
-        { label: "Grafik", path: "/admin/data-uang" },
+        { label: "Data Pengaduan", path: "/admin/data-pengaduan", icon: "fas fa-comments" },
+        { label: "Data Keuangan", path: "/admin/datakeuangan", icon: "fas fa-wallet" },
+        { label: "Grafik Keuangan", path: "/admin/grafik-keuangan", icon: "fas fa-chart-line" },
+        { label: "Customer Services", path: "/admin/customerservices", icon: "fas fa-headset" },
+        { label: "Berita", path: "/admin/berita", icon: "fas fa-newspaper" },
       ]
     };
   },
   methods: {
-    toggleDropdown() {
-      this.dropdownOpen = !this.dropdownOpen;
-    },
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
     },
-    logout() {
+    logout(){
       this.$router.push('/login');
+    },
+    handleResize() {
+      this.sidebarOpen = window.innerWidth > 768;
     }
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    setInterval(() => {
+      this.currentDate = new Date();  // Update tanggal dan waktu
+    }, 1000);  // 1000 ms = 1 detik
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   }
 };
 </script>
 
 <style scoped>
-/* Sidebar Responsiveness */
+/* Untuk memastikan sidebar tetap full height */
+.fixed {
+  height: 100vh;
+}
+
+/* Responsif */
 @media (max-width: 768px) {
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .fixed {
+    position: fixed;
+    z-index: 50;
   }
-  nav {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: auto;
-    padding: 10px;
-    right: 0;
-  }
-  .text-sm {
-    font-size: 12px;
-  }
+}
+
+/* Add smooth transition for the sidebar */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Adjust the profile section */
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
+.text-gray-400 {
+  color: #B0B0B0;
+}
+
+.text-gray-200 {
+  color: #E4E4E4;
+}
+
+.text-black {
+  color: #000;
 }
 </style>

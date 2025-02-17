@@ -1,64 +1,56 @@
 <template>
-  <div class="main-container w-full bg-white relative overflow-hidden mx-auto">
-    <!-- Navbar -->
-    <nav class="w-full h-[70px] bg-[#03a980] flex items-center px-6 justify-between shadow-md fixed top-0 left-0 right-0 z-50">
-      <!-- Logo -->
-      <div class="flex items-center gap-6">
-        <img src="@/assets/swiputih.png" alt="Logo" class="w-[45px] h-[45px] object-contain" />
-
-        <!-- Navbar Links for Desktop -->
-        <div class="hidden md:flex gap-3">
-          <router-link 
-            v-for="(item, index) in menuItems" 
-            :key="index"
-            :to="item.path"
-            class="relative px-4 py-2 text-sm font-semibold rounded-md transition"
-            :class="{ 
-              'bg-white text-[#151619] shadow-md': $route.path === item.path, 
-              'text-white hover:bg-[#028970] transition': $route.path !== item.path 
-            }"
-          >
-            {{ item.label }}
-          </router-link>
-        </div>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div 
+      class="bg-[#03a980] text-white fixed top-0 left-0 z-50 transition-all duration-300"
+      :class="sidebarOpen ? 'w-64 min-h-screen px-4 py-6 flex flex-col' : 'w-16 min-h-screen flex flex-col items-center py-6'"
+    >
+      <!-- Logo & Hamburger Menu -->
+      <div class="flex justify-between items-center mb-6 px-2">
+        <span v-if="sidebarOpen" class="ml-3 text-gray-200 font-bold text-lg">PUSAT LPKNI</span>
+        <button @click="toggleSidebar" class="p-2 focus:outline-none text-white">
+          <i class="fas" :class="sidebarOpen ? 'fa-angle-left' : 'fa-bars'"></i>
+        </button>
       </div>
+
+      <!-- Navigasi Menu -->
+      <nav class="flex flex-col flex-grow space-y-2">
+        <router-link 
+          v-for="(item, index) in menuItems" 
+          :key="index"
+          :to="item.path"
+          class="flex items-center py-3 px-4 rounded-md transition-all duration-200"
+          :class="{ 'bg-green-500 text-black': $route.path === item.path, 'hover:bg-gray-700': $route.path !== item.path }"
+        >
+          <i :class="item.icon" class="w-6 text-lg"></i>
+          <span v-if="sidebarOpen" class="ml-3">{{ item.label }}</span>
+        </router-link>
+      </nav>
 
       <!-- Profile & Logout -->
-      <div class="relative flex items-center space-x-4">
-        <button @click="toggleDropdown" class="flex items-center space-x-2">
-          <img src="@/assets/profile-icon.png" alt="Profile" class="w-9 h-9 rounded-full border border-white" />
-          <span class="text-white font-semibold hidden md:block">Pusat</span>
-        </button>
+      <div class="mt-auto pt-6 border-t border-gray-600">
+        <router-link to="/profile" class="flex items-center py-3 px-4 rounded-md hover:bg-gray-700">
+          <img src="@/assets/profile-icon.png" alt="Profile" class="w-8 h-8 rounded-full border border-white" />
+          <span v-if="sidebarOpen" class="ml-3 font-semibold">PUSAT LPKNI</span>
+        </router-link>
 
-        <!-- Dropdown Menu -->
-        <div v-if="dropdownOpen" class="absolute right-12 mt-2 w-40 bg-white rounded-lg shadow-lg py-2 z-50">
-          <router-link to="/pusat/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</router-link>
-          <button @click="logout" class="block px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-left">Logout</button>
+        <div v-if="sidebarOpen" class="text-white-400 text-xs mt-4 ml-3">
+          <p>{{ currentDate.toLocaleString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+          <p>{{ currentDate.toLocaleTimeString('id-ID') }} WIB</p>
         </div>
-      </div>
-
-      <!-- Hamburger Icon for Mobile -->
-      <div class="md:hidden flex items-center">
-        <button @click="toggleMobileMenu" class="text-white">
-          <i class="fas fa-bars text-2xl"></i>
+        
+        <!-- Logout Button -->
+        <button @click="logout" class="flex items-center py-3 px-4 mt-4 rounded-md text-red-500 hover:bg-gray-700 w-full">
+          <i class="fas fa-sign-out-alt w-6"></i>
+          <span v-if="sidebarOpen">Logout</span>
         </button>
       </div>
-    </nav>
+    </div>
 
-    <!-- Mobile Menu (Sidebar) -->
-    <div v-if="mobileMenuOpen" class="md:hidden fixed top-0 right-0 w-[250px] h-full bg-gray-700 bg-opacity-75 z-40 flex flex-col items-start py-6 px-4">
-      <router-link
-        v-for="(item, index) in menuItems"
-        :key="index"
-        :to="item.path"
-        class="text-white text-lg py-4 hover:bg-[#028970] w-full text-right"
-        @click="closeMobileMenu"
-      >
-        {{ item.label }}
-      </router-link>
-      <!-- <button @click="closeMobileMenu" class="text-white text-lg py-4 mt-4 w-full text-left">
-        Close Menu
-      </button> -->
+    <!-- Main Content -->
+    <div class="flex-1 transition-all duration-300"
+         :class="sidebarOpen ? 'ml-64 p-6' : 'ml-16 p-6'">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -67,118 +59,53 @@
 export default {
   data() {
     return {
+      sidebarOpen: window.innerWidth > 768, 
+      currentDate: new Date(),
       menuItems: [
-        { label: "Portal Berita", path: "/pusat/portal-berita" },
-        { label: "Verifikasi User", path: "/pusat/dataregistrasi" },
-        { label: "Kelola Berita", path: "/pusat/kelola-berita" },
-        { label: "Laporan Keuangan", path: "/pusat/datakeuangan" },
-        { label: "Customer Services", path: "/pusat/customerservices" },
-        { label: "Data Pengaduan", path: "/pusat/data-pengaduan" },
-        { label: "Cetak ID-CARD", path: "/pusat/generate-id-card" },
-        { label: "Data Transaksi", path: "/pusat/data-transaksi" }
-      ],
-      dropdownOpen: false,
-      mobileMenuOpen: false,
-      username: "Pusat", // Gantilah dengan data dari backend atau Vuex store
+        { label: "Verifikasi", path: "/pusat/dataregistrasi", icon: "fas fa-user-check" },
+        { label: "Kelola Berita", path: "/pusat/kelola-berita", icon: "fas fa-newspaper" },
+        { label: "Keuangan", path: "/pusat/datakeuangan", icon: "fas fa-wallet" },
+        { label: "Data Transaksi", path: "/pusat/data-transaksi", icon: "fas fa-exchange-alt" },
+        { label: "Customer Services", path: "/pusat/customerservices", icon: "fas fa-headset" },
+        { label: "Data Pengaduan", path: "/pusat/data-pengaduan", icon: "fas fa-comments" },
+        { label: "Cetak ID-CARD", path: "/pusat/generate-id-card", icon: "fas fa-id-card" },
+      ]
     };
   },
   methods: {
-    toggleDropdown() {
-      this.dropdownOpen = !this.dropdownOpen;
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
     },
-    toggleMobileMenu() {
-      this.mobileMenuOpen = !this.mobileMenuOpen;
-    },
-    closeMobileMenu() {
-      this.mobileMenuOpen = false;
-    },
-    logout() {
+    logout(){
       this.$router.push('/login');
+    },
+    handleResize() {
+      this.sidebarOpen = window.innerWidth > 768;
     }
-  }
+  },
+    mounted() {
+      window.addEventListener("resize", this.handleResize);
+      setInterval(() => {
+        this.currentDate = new Date();  // Update tanggal dan waktu
+      }, 1000);  // 1000 ms = 1 detik
+    },
+    beforeUnmount() {
+      window.removeEventListener("resize", this.handleResize);
+    },
 };
 </script>
 
 <style scoped>
-/* Navbar styling for both desktop and mobile */
-nav {
-  height: 70px;
-  z-index: 1000;
-  transition: background-color 0.3s ease-in-out;
+/* Untuk memastikan sidebar tetap full height */
+.fixed {
+  height: 100vh;
 }
 
-/* Hamburger Menu */
-.fas.fa-bars {
-  cursor: pointer;
-}
-
-/* Mobile menu layout */
-.md:hidden {
-  display: none;
-}
-
+/* Responsif */
 @media (max-width: 768px) {
-  /* Show hamburger on small screens */
-  .md:hidden {
-    display: block;
-  }
-
-  /* Navbar items will be shown as a vertical sidebar when hamburger is clicked */
-  .main-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Mobile menu style */
-  .text-lg {
-    font-size: 18px;
-  }
-
-  .w-full {
-    width: 100%;
-  }
-
-  .text-white {
-    font-size: 16px;
-  }
-
-  /* Adjust spacing in mobile view */
-  nav {
-    padding: 0 20px;
-  }
-
-  .text-white.font-semibold {
-    font-size: 14px;
-  }
-
-  .w-40 {
-    width: 90%;
-  }
-
-  /* Mobile Sidebar styling */
   .fixed {
     position: fixed;
-    top: 0;
-    right: 0;
-  }
-
-  /* .w-[250px] {
-    width: 250px;
-  } */
-
-  .h-full {
-    height: 100%;
-  }
-
-  .bg-gray-700 {
-    background-color: #374151;
-  }
-
-  /* Close Menu Button */
-  .text-white.text-lg.py-4.mt-4 {
-    text-align: center;
-    background-color: #028970;
-    border-radius: 8px;
+    z-index: 50;
   }
 }
 </style>

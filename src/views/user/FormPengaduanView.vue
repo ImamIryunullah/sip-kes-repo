@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex flex-col bg-gray-100 mt-10">
+  <div class="w-screen h-screen flex flex-col bg-gray-100 mt-8">
     <NavbarUser />
     <div class="flex flex-col items-center p-6 bg-gray-100 flex-grow mt-10">
       <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg animate-fadeInUp">

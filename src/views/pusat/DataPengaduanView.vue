@@ -1,20 +1,20 @@
 <template>
-  <div class="w-screen bg-gray-100 mt-12">
-    <NavbarPusat />
-    <div class="flex flex-col items-center p-4 sm:p-6 md:p-10 bg-gray-100 flex-grow">
+  <div class="w-screen bg-green-100 flex">
+  <NavbarPusat />
+    <div class="flex flex-col items-center p-4 sm:p-6 md:p-10 bg-green-100 flex-grow ml-50">
       <div class="bg-white w-full max-w-4xl p-4 sm:p-6 rounded-lg shadow-md">
         <h2 class="text-xl sm:text-2xl font-semibold text-[#03a980] text-center mb-4 sm:mb-6">Layanan Pengaduan - Pusat</h2>
-        
+
         <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
-          <button @click="prevPage" :disabled="currentPage === 1" class="p-2 bg-gray-300 text-gray-700 rounded-md disabled:opacity-50">Previous</button>
+          <button @click="prevPage" :disabled="currentPage === 1" class="p-2 bg-green-300 text-gray-700 rounded-md disabled:opacity-50">Previous</button>
           <span class="my-2 sm:my-0">Page {{ currentPage }} of {{ totalPages }}</span>
-          <button @click="nextPage" :disabled="currentPage === totalPages" class="p-2 bg-gray-300 text-gray-700 rounded-md disabled:opacity-50">Next</button>
+          <button @click="nextPage" :disabled="currentPage === totalPages" class="p-2 bg-green-300 text-gray-700 rounded-md disabled:opacity-50">Next</button>
         </div>
 
         <div v-if="paginatedComplaints.length > 0" class="space-y-4">
           <div v-for="(complaint, index) in paginatedComplaints" :key="index" class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-300">
             <p><strong>ID Pengaduan:</strong> {{ complaint.id }}</p>
-            <p><strong>Nama Pengadu:</strong> {{ complaint.NamaPengadu }} </p>
+            <p><strong>Nama Pengadu:</strong> {{ complaint.NamaPengadu }}</p>
             <p><strong>Daerah:</strong> {{ complaint.daerah }}</p>
             <p><strong>Kategori:</strong> {{ complaint.kategori }}</p>
             <p><strong>Judul:</strong> {{ complaint.judul }}</p>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="mt-4">
-              <textarea v-model="complaint.tanggapan" class="w-full p-3 border border-gray-300 rounded-lg resize-vertical" placeholder="Tanggapan untuk pengaduan ini"></textarea>
+              <textarea v-model="complaint.tanggapan" class="w-full p-5 border border-gray-300 rounded-lg resize-vertical" placeholder="Tanggapan untuk pengaduan ini"></textarea>
               <button @click="sendResponse(complaint)" class="mt-2 w-full bg-[#03a980] text-white p-3 rounded-lg font-semibold hover:bg-[#028a66] transition">
                 Kirim Tanggapan
               </button>

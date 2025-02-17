@@ -77,7 +77,7 @@ export default {
       ],
       dropdownOpen: false,
       mobileMenuOpen: false,
-      username: "User123", // Gantilah dengan data dari backend atau Vuex store
+      username: "User123", // Gantilah dengan data dari bac   
     };
   },
   methods: {

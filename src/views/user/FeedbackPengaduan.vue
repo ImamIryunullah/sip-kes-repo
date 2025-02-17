@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen bg-gray-100 mt-12">
+    <div class="w-screen bg-gray-100 mt-[70px]">
       <NavbarUser />
       <div class="flex flex-col items-center p-4 sm:p-6 md:p-10 bg-gray-100 flex-grow">
         <div class="bg-white w-full max-w-4xl p-4 sm:p-6 rounded-lg shadow-md">
@@ -8,7 +8,7 @@
           <input v-model="searchQuery" type="text" placeholder="Cari berdasarkan nama..." class="mb-4 p-2 border border-gray-300 rounded-md w-full">
   
           <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
-            <button @click="prevPage" :disabled="currentPage === 1" class="p-2 bg-gray-300 text-gray-700 rounded-md disabled:opacity-50">Previous</button>
+            <button @click="prevPage" :disabled="currentPage === 1" class="p-2 bg-gray-300 text-gray-700 rounded-md disabled:opacity-50">Back</button>
             <span class="my-2 sm:my-0">Page {{ currentPage }} of {{ totalPages }}</span>
             <button @click="nextPage" :disabled="currentPage === totalPages" class="p-2 bg-gray-300 text-gray-700 rounded-md disabled:opacity-50">Next</button>
           </div>
@@ -40,7 +40,7 @@
           { id: "001", namapengadu: "Tatsss", judul: "Keterlambatan Sertifikat", status: "Diproses", tanggapan: "Pengaduan Anda sedang kami proses. Harap bersabar." },
           { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
           { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
-          { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
+          { id: "002", namapengadu: "ora", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
           { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
           { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },
           { id: "002", namapengadu: "arya", judul: "Fasilitas Tidak Memadai", status: "Disetujui", tanggapan: "Terima kasih atas laporan Anda. Fasilitas akan segera diperbaiki." },

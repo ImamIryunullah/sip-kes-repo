@@ -1,28 +1,21 @@
 <template>
   <div class="bg-green-100 flex">
-    <NavbarPusat />
+    <NavbarView />
 
     <!-- Main Content -->
-    <div class="flex-1 min-h-screen bg-green-100 px-6 md:px-12 lg:px-20 pt-5 mb-12 ml-50">
-      <!-- Filter Waktu -->
-      <div class="flex justify-center space-x-4 mt-6">
-        <button
-          v-for="filter in filters"
-          :key="filter"
-          @click="setActiveFilter(filter)"
-          :class="[
-            'px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300',
-            activeFilter === filter ? 'bg-[#03a980] text-white' : 'bg-gray-200 text-gray-700 hover:bg-[#028a66]'
-          ]"
+    <div class="flex-1 min-h- bg-green-100 px-6 md:px-12 lg:px-20 pt-5 mb-12">
+      <div class="flex justify-center">
+        <select 
+          v-model="activeFilter" 
+          @change="setActiveFilter(activeFilter)" 
+          class="px-4 py-2 text-sm font-semibold bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#03a980]"
         >
-          {{ filter }}
-        </button>
+          <option v-for="filter in filters" :key="filter" :value="filter">{{ filter }}</option>
+        </select>
       </div>
 
-      <!-- Data Summary Section -->
       <div class="flex justify-center mt-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-full md:w-[100%] px-4 md:px-0">
-          <!-- Pemasukan Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full md:w-[100%] px-4 md:px-0">
           <div class="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 class="text-base md:text-lg font-semibold">Ringkasan Pemasukan</h3>
             <p class="text-gray-500 text-xs md:text-sm">Terakhir diperbarui 4 Feb 10:00 AM</p>
@@ -32,8 +25,6 @@
               <LineChart :chartData="chartData" />
             </div>
           </div>
-
-          <!-- Pengeluaran Summary -->
           <div class="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 class="text-base md:text-lg font-semibold">Ringkasan Pengeluaran</h3>
             <p class="text-gray-500 text-xs md:text-sm">Terakhir diperbarui 4 Feb 10:00 AM</p>
@@ -46,18 +37,14 @@
         </div>
       </div>
 
-      <!-- Monthly and Yearly Data Section -->
       <div class="flex justify-center mt-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 w-full md:w-[100%] px-4 md:px-0">
-          <!-- Monthly Data -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full md:w-[100%] px-4 md:px-0">
           <div class="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 class="text-base md:text-lg font-semibold">Pendapatan Perbulan</h3>
             <div class="mt-4">
               <LineChart :chartData="monthlyData" />
             </div>
           </div>
-
-          <!-- Yearly Data -->
           <div class="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 class="text-base md:text-lg font-semibold">Pendapatan Pertahun</h3>
             <div class="mt-4">
@@ -72,12 +59,12 @@
 
 <script>
 import LineChart from '@/components/LineChart.vue';
-import NavbarPusat from '@/components/NavbarPusat.vue';
+import NavbarView from '@/components/NavbarView.vue';
 
 export default {
   components: {
     LineChart,
-    NavbarPusat
+    NavbarView
   },
   data() {
     return {
@@ -167,12 +154,6 @@ export default {
   .p-6 {
     padding: 1rem;
   }
-  .mt-4 {
-    margin-top: 1rem;
-  }
-  .grid-cols-1 {
-    grid-template-columns: 1fr;
-  }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   h3 {
@@ -183,23 +164,6 @@ export default {
   }
   p {
     font-size: 14px;
-  }
-  .grid-cols-1 {
-    grid-template-columns: 1fr 1fr;
-  }
-  .grid-cols-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (min-width: 1025px) {
-  h3 {
-    font-size: 18px;
-  }
-  h2 {
-    font-size: 24px;
-  }
-  p {
-    font-size: 16px;
   }
 }
 </style>
