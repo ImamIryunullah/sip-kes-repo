@@ -8,33 +8,33 @@
         <h2 class="text-3xl font-semibold text-red-600 text-center mb-6">Form Pengaduan</h2>
         <form @submit.prevent="submitForm" class="space-y-6">
           <!-- Nama Pengadu -->
-          <div>
-            <label for="nama" class="block text-sm font-semibold text-red-700">Nama Pengadu</label>
-            <input id="nama" v-model="form.nama" type="text" required class="input-field" placeholder="Nama Pengadu" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="nama" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Nama Pengadu</label>
+            <input id="nama" v-model="form.nama" type="text" required class="input-field w-full sm:w-2/3" placeholder="Nama Pengadu" />
           </div>
 
           <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-semibold text-red-700">Email</label>
-            <input id="email" v-model="form.email" type="email" required class="input-field" placeholder="Email Anda" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="email" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Email</label>
+            <input id="email" v-model="form.email" type="email" required class="input-field w-full sm:w-2/3" placeholder="Email Anda" />
           </div>
 
           <!-- Wilayah -->
-          <div>
-            <label for="wilayah" class="block text-sm font-semibold text-red-700">Wilayah/Provinsi</label>
-            <input id="wilayah" v-model="form.wilayah" type="text" required class="input-field" placeholder="Provinsi Anda" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="wilayah" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Wilayah/Provinsi</label>
+            <input id="wilayah" v-model="form.wilayah" type="text" required class="input-field w-full sm:w-2/3" placeholder="Provinsi Anda" />
           </div>
 
           <!-- Daerah -->
-          <div>
-            <label for="daerah" class="block text-sm font-semibold text-red-700">Daerah</label>
-            <input id="daerah" v-model="form.daerah" type="text" required class="input-field" placeholder="Kota atau Kabupaten" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="daerah" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Daerah</label>
+            <input id="daerah" v-model="form.daerah" type="text" required class="input-field w-full sm:w-2/3" placeholder="Kota atau Kabupaten" />
           </div>
 
           <!-- Kategori Pengaduan -->
-          <div>
-            <label for="kategori" class="block text-sm font-semibold text-red-700">Kategori Pengaduan</label>
-            <select id="kategori" v-model="form.kategori" required class="input-field">
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="kategori" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Kategori Pengaduan</label>
+            <select id="kategori" v-model="form.kategori" required class="input-field w-full sm:w-2/3">
               <option disabled value="">Pilih Kategori</option>
               <option value="Layanan Pendidikan">Layanan Pendidikan</option>
               <option value="Sertifikasi">Sertifikasi</option>
@@ -45,36 +45,34 @@
           </div>
 
           <!-- Judul Pengaduan -->
-          <div>
-            <label for="judul" class="block text-sm font-semibold text-red-700">Judul Pengaduan</label>
-            <input id="judul" v-model="form.judul" type="text" required class="input-field" placeholder="Judul Pengaduan" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="judul" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Judul Pengaduan</label>
+            <input id="judul" v-model="form.judul" type="text" required class="input-field w-full sm:w-2/3" placeholder="Judul Pengaduan" />
           </div>
 
           <!-- Deskripsi Pengaduan -->
-          <div>
-            <label for="deskripsi" class="block text-sm font-semibold text-red-700">Deskripsi Pengaduan</label>
-            <textarea id="deskripsi" v-model="form.deskripsi" required class="input-field" placeholder="Jelaskan pengaduan Anda" rows="4"></textarea>
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="deskripsi" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Deskripsi Pengaduan</label>
+            <textarea id="deskripsi" v-model="form.deskripsi" required class="input-field w-full sm:w-2/3" placeholder="Jelaskan pengaduan Anda" rows="4"></textarea>
           </div>
 
           <!-- Lampiran -->
-          <div>
-            <label for="lampiran" class="block text-sm font-semibold text-red-700">Lampiran / Bukti</label>
-            <input id="lampiran" type="file" @change="handleFileUpload" class="input-field" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="lampiran" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Lampiran / Bukti</label>
+            <input id="lampiran" type="file" @change="handleFileUpload" class="input-field w-full sm:w-2/3" />
             <p v-if="fileName" class="text-sm text-red-700 mt-2">File yang dipilih: {{ fileName }}</p>
           </div>
 
           <!-- Harapan Penyelesaian -->
-          <div>
-            <label for="harapan" class="block text-sm font-semibold text-red-700">Harapan Penyelesaian</label>
-            <input id="harapan" v-model="form.harapan" type="text" required class="input-field" placeholder="Harapan Penyelesaian" />
+          <div class="flex items-center space-x-4 mb-4">
+            <label for="harapan" class="block text-sm font-semibold text-red-700 w-full sm:w-1/3">Harapan Penyelesaian</label>
+            <input id="harapan" v-model="form.harapan" type="text" required class="input-field w-full sm:w-2/3" placeholder="Harapan Penyelesaian" />
           </div>
 
           <!-- Tindak Lanjut -->
-          <div class="flex items-center">
+          <div class="flex items-center space-x-4 mb-4">
             <input type="checkbox" id="tindakLanjut" v-model="form.tindakLanjut" class="mr-2" />
-            <label for="tindakLanjut" class="text-sm font-semibold text-red-700">
-              Apakah Anda ingin dihubungi untuk tindak lanjut?
-            </label>
+            <label for="tindakLanjut" class="text-sm font-semibold text-red-700">Apakah Anda ingin dihubungi untuk tindak lanjut?</label>
           </div>
 
           <!-- Submit Button -->
@@ -190,14 +188,34 @@ export default {
 
 <style scoped>
 .input-field {
-  width: 100%;
-  padding: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.3s;
 }
+
 .input-field:focus {
-  border-color: #ef4444;
+  border-color: #f87171;
+}
+
+button:hover {
+  background-color: #dc2626;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
