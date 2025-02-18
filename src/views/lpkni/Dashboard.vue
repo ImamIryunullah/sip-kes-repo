@@ -16,6 +16,57 @@
         </div>
         </section>
         
+        <div @click="toggleChatModal" class="fixed bottom-10 right-10 bg-red-600 p-4 rounded-full shadow-lg cursor-pointer hover:bg-red-700 transition-all z-50">
+      <i class="fas fa-headset text-white text-2xl"></i>
+    </div>
+
+    <!-- Live Chat Modal -->
+    <div v-if="showChatModal" class="fixed bottom-10 right-5 bg-opacity-50 z-50">
+      <div class="bg-white w-96 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-semibold text-red-600">Live Chat</h2>
+          <button @click="toggleChatModal" class="text-red-600 font-bold text-lg">X</button>
+        </div>
+
+        <!-- Predefined Questions -->
+        <div class="mb-4">
+          <p class="text-gray-600 mb-2">Select a question:</p>
+          <div class="space-y-2">
+            <button @click="setPredefinedMessage('Bagaimana cara mendaftar anggota LPKNI?')" class="w-full bg-gray-200 p-2 rounded-lg hover:bg-gray-300 text-left">
+              Bagaimana cara mendaftar anggota LPKNI?
+            </button>
+            <button @click="setPredefinedMessage('Halo! Bantu saya')" class="w-full bg-gray-200 p-2 rounded-lg hover:bg-gray-300 text-left">
+              Halo! Bantu saya
+            </button>
+            <button @click="setPredefinedMessage('Halo, bagaimana cara membuat akun SWI?')" class="w-full bg-gray-200 p-2 rounded-lg hover:bg-gray-300 text-left">
+              Halo, bagaimana cara membuat akun SWI?
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Content -->
+        <div class="h-60 overflow-auto bg-gray-100 p-4 rounded-lg mb-4">
+          <div v-for="(msg, index) in chatMessages" :key="index" class="flex mb-3">
+            <!-- User message bubble (right-aligned) -->
+            <div v-if="msg.isUser" class="ml-auto max-w-xs py-2 px-4 bg-gray-400 text-white rounded-lg shadow-md">
+              {{ msg.text }}
+            </div>
+
+            <!-- Admin message bubble (left-aligned) -->
+            <div v-else class="mr-auto max-w-xs py-2 px-4 bg-red-600 text-white rounded-lg shadow-md">
+              {{ msg.text }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Input for Custom Message -->
+        <input type="text" v-model="chatMessage" class="w-full mt-4 p-2 border border-gray-300 rounded-lg" placeholder="Type your message..." />
+
+        <!-- Send Button -->
+        <button @click="sendMessage" class="mt-2 w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-all">Send</button>
+        </div>
+      </div>
+      
         <section id="about" class="py-20 px-6 bg-red-100 text-center">
           <h2 class="text-3xl font-semibold mb-4 text-gray-800" id="typing-title"></h2> <!-- Apply typing effect here -->
           
@@ -139,85 +190,113 @@
   </template>
   
   <script>
-import FooterLandingPage from '@/components/FooterLandingPage.vue';
-import NavbarLandingPage from '@/components/NavbarLandingPage.vue';
-
-// Move the type function outside of the component
-function type(element, text, i) {
-  if (i < text.length) {
-    element.innerHTML += text.charAt(i);
-    i++;
-    setTimeout(() => type(element, text, i), 100);
-  } else {
-    setTimeout(() => {
-      element.innerHTML = "";
-      i = 0;
-      type(element, text, i);
-    }, 2000);
+  import FooterLandingPage from '@/components/FooterLandingPage.vue';
+  import NavbarLandingPage from '@/components/NavbarLandingPage.vue';
+  
+  // Move the type function outside of the component
+  function type(element, text, i) {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(() => type(element, text, i), 100);
+    } else {
+      setTimeout(() => {
+        element.innerHTML = "";
+        i = 0;
+        type(element, text, i);
+      }, 2000);
+    }
   }
-}
-
-export default {
-  components: {
-    NavbarLandingPage,
-    FooterLandingPage
-  },
-  name: 'LandingPage',
-  data() {
-    return {
-      filters: ["About", "Services", "Contact"]
-    };
-  },
-  mounted() {
-    this.typeWriterEffect(); 
-    this.addFadeInAnimation(); 
-  },
-  methods: {
-    // Method for Typing Effect
-    typeWriterEffect() {
-      const text = "Lembaga Perlindungan Konsumen Indonesia"; 
-      let i = 0;
-      const element = document.getElementById("typing"); // Target the correct element (about-text)
-
-      // Ensure the element exists before running the typing effect
-      if (element) {
-        type(element, text, i); // Call the type function outside the mounted hook
-      }
+  
+  export default {
+    components: {
+      NavbarLandingPage,
+      FooterLandingPage
     },
-
-    // Method to add fade-in effect on scroll
-    addFadeInAnimation() {
-      window.addEventListener('scroll', () => {
-        const aboutText = document.getElementById('about-text');
-        const trackRecord = document.getElementById('track-record');
-
-        // Check if elements exist before checking their position
-        if (aboutText && trackRecord) {
-          const rectAboutText = aboutText.getBoundingClientRect();
-          const rectTrackRecord = trackRecord.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-
-          // Fade-in effect for About text
-          if (rectAboutText.top < viewportHeight - 100) {
-            aboutText.classList.add('animate__fadeIn'); // Add animation class
-          }
-
-          // Fade-in effect for Track Record section
-          if (rectTrackRecord.top < viewportHeight - 100) {
-            trackRecord.classList.add('animate__fadeIn'); // Add animation class
-          }
+    name: 'LandingPage',
+    data() {
+      return {
+        filters: ["About", "Services", "Contact"],
+        showChatModal: false, // State to control the visibility of the chat modal
+        chatMessage: '',
+        chatMessages: [],
+        isFirstMesage: true,
+      };
+    },
+    mounted() {
+      this.typeWriterEffect(); 
+      this.addFadeInAnimation(); 
+    },
+    methods: {
+      // Method for Typing Effect
+      typeWriterEffect() {
+        const text = "Lembaga Perlindungan Konsumen Indonesia"; 
+        let i = 0;
+        const element = document.getElementById("typing"); // Target the correct element (about-text)
+  
+        // Ensure the element exists before running the typing effect
+        if (element) {
+          type(element, text, i); // Call the type function outside the mounted hook
         }
-      });
-    },
+      },
+  
+      // Method to add fade-in effect on scroll
+      addFadeInAnimation() {
+        window.addEventListener('scroll', () => {
+          const aboutText = document.getElementById('about-text');
+          const trackRecord = document.getElementById('track-record');
+  
+          // Check if elements exist before checking their position
+          if (aboutText && trackRecord) {
+            const rectAboutText = aboutText.getBoundingClientRect();
+            const rectTrackRecord = trackRecord.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+  
+            // Fade-in effect for About text
+            if (rectAboutText.top < viewportHeight - 100) {
+              aboutText.classList.add('animate__fadeIn'); // Add animation class
+            }
+  
+            // Fade-in effect for Track Record section
+            if (rectTrackRecord.top < viewportHeight - 100) {
+              trackRecord.classList.add('animate__fadeIn'); // Add animation class
+            }
+          }
+        });
+      },
+  
+      setActiveFilter(filter) {
+        console.log(filter);
+      },
+  
+      // Method to toggle the visibility of the chat modal
+      toggleChatModal() {
+        this.showChatModal = !this.showChatModal;
+      },
 
-    setActiveFilter(filter) {
-      console.log(filter);
+      setPredefinedMessage(message){
+        this.chatMessage = message;
+      },
+  
+      // Method to send chat messages
+      sendMessage() {
+      if (this.chatMessage.trim()) {
+        // Add the user's message
+        this.chatMessages.push({ text: this.chatMessage, isUser: true });
+        
+        // If it's the first message, send an automated reply
+        if (this.isFirstMessage) {
+          this.chatMessages.push({ text: 'Terimakasih telah menghubungi kami, tunggu hingga admin membalas....', isUser: false });
+          this.isFirstMessage = false;  // No longer the first message
+        }
+
+        // Clear the input field after sending
+        this.chatMessage = '';
+      }
     }
   }
 };
-</script>
-
-  
+  </script>
   
   <style scoped>
   /* Tailwind CSS animation for fade-in effect */
@@ -230,6 +309,36 @@ export default {
     }
   }
 
+  .text-left{
+    text-align: left;
+  }
+
+  .text-right{
+    text-align: right;
+  }
+  .max-w-xs{
+    max-width: 60%;
+  }
+
+  .ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.bg-gray-300 {
+  background-color: #D1D5DB;
+}
+
+.bg-red-600 {
+  background-color: #DC2626;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
   .animate-fadeIn {
     animation: fadeIn 2s ease-out forwards;
   }
