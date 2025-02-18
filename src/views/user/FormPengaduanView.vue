@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex flex-col bg-gray-100 mt-8">
+  <div class="w-screen h-screen flex flex-col bg-red-100 mt-8">
     <NavbarUser />
     <div class="flex flex-col items-center p-6 bg-gray-100 flex-grow mt-10">
       <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg animate-fadeInUp">
@@ -8,6 +8,10 @@
           <div>
             <label for="nama" class="block text-sm font-semibold text-[#028a66]">Nama Pengadu</label>
             <input id="nama" v-model="form.nama" type="text" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Nama Pengadu" />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-semibold text-[#028a66]">Nama Pengadu</label>
+            <input id="email" v-model="form.email" type="text" required class="input-field w-full mt-2 focus:ring-2 focus:ring-[#03a980]" placeholder="Email" />
           </div>
           <div>
             <label for="wilayah" class="block text-sm font-semibold text-[#028a66]">Wilayah/Provinsi</label>
@@ -73,6 +77,7 @@ export default {
     return {
       form: {
         nama: '',
+        email: '',
         wilayah: '',
         daerah: '',
         kategori: '',
@@ -96,6 +101,7 @@ export default {
     submitForm() {
       const formData = new FormData();
       formData.append('nama', this.form.nama);
+      formData.append('email', this.form.email);
       formData.append('wilayah', this.form.wilayah);
       formData.append('daerah', this.form.daerah);
       formData.append('kategori', this.form.kategori);

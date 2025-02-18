@@ -33,6 +33,9 @@ import FeedbackPengaduan from '@/views/user/FeedbackPengaduan.vue';
 import DataPengaduanAdmin from '@/views/admin/DataPengaduanAdmin.vue';
 import DataKeuanganAdmin from '@/views/admin/DataKeuanganAdmin.vue';
 import GrafikKeuangan from '@/views/admin/GrafikKeuanganAdmin.vue';
+import Dashboard from '@/views/lpkni/Dashboard.vue';
+import FormPengaduanLpkni from '@/views/lpkni/FormPengaduanLpkni.vue';
+import ComingSoon from '@/views/lpkni/ComingSoon.vue';
 
 const routes = [
   { path: '/login', name: 'Login', component: LoginView },
@@ -61,6 +64,11 @@ const routes = [
   { path: "/pusat/generate-id-card", name: "IdCardPusat", component: PusatcardView },
   { path: "/user/complete-profile", name: "DataDiriView", component: DataDiriView },
   { path: "/admin/datakeuangan", name: "DataKeuanganAdmin", component: DataKeuanganAdmin },
+  { path: "/dashboard", name: "LandingPage", component: Dashboard },
+  { path: "/form-pengaduan-lpkni", name: "formPengaduan", component: FormPengaduanLpkni },
+  { path: "/customer-serivices-lpkni", name: "CSLPKNI", component: ComingSoon },
+
+
 
   
   {
