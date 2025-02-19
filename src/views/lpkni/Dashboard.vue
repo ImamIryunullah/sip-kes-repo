@@ -226,6 +226,7 @@
     mounted() {
       this.typeWriterEffect(); 
       this.addFadeInAnimation(); 
+      
     },
     methods: {
       // Method for Typing Effect
@@ -292,6 +293,10 @@
 
         // Clear the input field after sending
         this.chatMessage = '';
+
+        setTimeout(() => {
+      this.chatMessages.push({ text: 'Balasan dari admin: Terima kasih atas pesan Anda! Ada yang bisa kami bantu?', isUser: false });
+      }, 2000);  // 2 seconds delay to simulate response time
       }
     }
   }

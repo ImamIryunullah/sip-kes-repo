@@ -1,6 +1,5 @@
 <template>
   <div class="w-screen bg-gray-100">
-    <NavbarPortalView />
 
     <!-- Content Section -->
     <div class="flex flex-col items-center p-10 bg-gray-100 flex-grow">
@@ -57,11 +56,11 @@
 
 <script>
 import FooterPortal from '@/components/FooterPortal.vue';
-import NavbarPortalView from '@/components/NavbarPortalView.vue';
+
 
 export default {
   components: {
-    NavbarPortalView,
+
     FooterPortal
   }
 };

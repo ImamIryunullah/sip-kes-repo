@@ -1,7 +1,6 @@
 <template>
   <div class="w-screen h-screen flex flex-col bg-gray-100">
     <!-- Navbar -->
-    <NavbarPortalView />
 
     <!-- Pilihan Kalimat untuk Memulai Percakapan -->
     <div class="flex flex-col justify-center items-center p-8 space-y-6">
@@ -44,13 +43,11 @@
 </template>
 
 <script>
-import NavbarPortalView from '@/components/NavbarPortalView.vue';
+
 
 
 export default {
-  components: {
-    NavbarPortalView
-  },
+
   data() {
     return {
       newMessage: "",

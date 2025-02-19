@@ -15,7 +15,7 @@
             <span>About</span>
           </router-link>
         </li>
-        <li>
+        <li >
           <router-link to="#services" class="text-white hover:text-gray-300 flex items-center space-x-2">
             <i class="fas fa-cogs"></i>
             <span>Services</span>
@@ -78,7 +78,6 @@
       </div>
     </div>
 
-    <!-- Mobile Sidebar Menu -->
     <div v-show="isMenuOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 md:hidden">
       <div class="flex justify-end p-6">
         <button @click="toggleMenu" class="text-white">

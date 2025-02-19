@@ -6,13 +6,12 @@ import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import OtpView from '@/views/OtpView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import ResetPassView from '@/views/ResetPassView.vue'
-import PortalBeritaView from '@/views/PortalBeritaView.vue'
+import PortalBeritaView from '@/views/SuaraKonsumen/PortalBeritaView.vue'
 import TambahBeritaView from '@/views/admin/TambahBeritaView.vue'
 import BeritaView from '@/views/admin/BeritaView.vue'
 import CsView from '@/views/admin/CsView.vue'
 import ChatMulaiVIew from '@/views/ChatMulaiVIew.vue'
 import ProfileView from '@/views/user/ProfileView.vue'
-import DetailBerita from '@/views/DetailBerita.vue'
 import PendaftaranAnggotaView from '@/views/user/PendaftaranAnggotaView.vue'
 import RiwayatPengajuan from '@/views/user/RiwayatPengajuan.vue'
 import RegisterPusatView from '@/views/pusat/RegisterPusatView.vue'
@@ -36,6 +35,7 @@ import GrafikKeuangan from '@/views/admin/GrafikKeuanganAdmin.vue';
 import Dashboard from '@/views/lpkni/Dashboard.vue';
 import FormPengaduanLpkni from '@/views/lpkni/FormPengaduanLpkni.vue';
 import ComingSoon from '@/views/lpkni/ComingSoon.vue';
+import ArticleDetail from '@/views/SuaraKonsumen/ArticleDetail.vue';
 
 const routes = [
   { path: '/login', name: 'Login', component: LoginView },
@@ -43,14 +43,12 @@ const routes = [
   { path: '/getotp', name: 'OTPView', component: OtpView },
   { path: '/register', name: 'SignUpView', component: SignUpView },
   { path: '/resetpassword', name: 'ResetPassView', component: ResetPassView },
-  { path: '/', name: 'Portal berita', component: PortalBeritaView },
   { path: '/tambahberita', name: 'TambahBeritaView', component: TambahBeritaView },
   { path: '/admin/berita', name: 'Berita', component: BeritaView },
   { path: '/admin/customerservices', name: 'CsView', component: CsView },
   { path: '/chat', name: 'UserChat', component: ChatMulaiVIew },
   { path: '/profile', name: 'ProfileView', component: ProfileView },
   { path: '/admin/grafik-keuangan', name: 'Datauang', component: GrafikKeuangan },
-  { path: '/news/:id', name: 'DetailBerita', component: DetailBerita },
   { path: '/pendaftaran-anggota', name: 'PendaftaranAnggota', component: PendaftaranAnggotaView},
   { path: '/riwayat-pengajuan', name: 'RiwayatPengajuan', component: RiwayatPengajuan },
   { path: '/pusat/dataregistrasi', name: 'RegisterPusatView', component: RegisterPusatView },
@@ -92,7 +90,10 @@ const routes = [
   { path: "/user/transaksi", name: "UserTransaksi", component: TransaksiUserView},
   { path: "/pusat/data-transaksi", name: "PusatDataTransaksi", component: PusatDataTransaksiView},
   { path: "/user/feedback", name: "FeedBackPengaduan", component: FeedbackPengaduan},
-  { path: "/admin/data-pengaduan", name: "Data Pengaduan", component: DataPengaduanAdmin}
+  { path: "/admin/data-pengaduan", name: "Data Pengaduan", component: DataPengaduanAdmin},
+  { path: '/', name: 'Portal berita', component: PortalBeritaView },
+  { path: '/news/:id', name: 'DetailBerita', component: ArticleDetail },
+
 
 ]
 
